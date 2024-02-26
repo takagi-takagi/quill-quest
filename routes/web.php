@@ -29,3 +29,11 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/test', function () {
+    $old_article = 'aaaaa';
+    $new_article = 'aaaaab';
+    $diff = xdiff_string_diff($old_article, $new_article, 1);
+    return '<p>'.$diff.'<br>'.similar_text($old_article, $new_article).'</p>';
+    ;
+});

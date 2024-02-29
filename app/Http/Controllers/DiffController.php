@@ -50,4 +50,11 @@ class DiffController extends Controller
         return view('diff.diff', $data);
     }
 
+    public function test3(Request $request) {
+        $old = 'こんにちは。'."\n".'aaabbb';
+        $new = $request->post;
+        $data = ['html' => $this->diff($old,$new)];
+        return view('diff.diff', $data);
+    }
+
 }

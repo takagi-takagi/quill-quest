@@ -21,7 +21,7 @@ class DiffController extends Controller
         ];
         $rendererOptions = [
             'detailLevel' => 'char',
-            'language' => 'eng',
+            'language' => ['eng',['old_version' => '旧'],['new_version' => '新']],
             'lineNumbers' => true,
             'separateBlock' => true,
             'showHeader' => true,

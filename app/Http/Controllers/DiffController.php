@@ -10,9 +10,7 @@ use Jfcherng\Diff\Renderer\RendererConstant;
 
 class DiffController extends Controller
 {
-    public function test() {
-        $old = 'This is the old string.';
-        $new = 'And this is the new one.';
+    private function diff($old,$new) {
         $rendererName = 'SideBySide';
         $differOptions = [
             'context' => 3,
@@ -37,8 +35,19 @@ class DiffController extends Controller
             'resultForIdenticals' => null,
             'wrapperClasses' => ['diff-wrapper'],
         ];
-        
         $result = DiffHelper::calculate($old, $new, $rendererName, $differOptions, $rendererOptions);
         return $result;
     }
+
+    public function test() {
+        $old = 'This is the old string.'."\n".'aaaaaaaaa'."\n".'konnichiwa';
+        $new = 'And this is the new one.'."\n".'aaaaaaaaab'."\n".'konnichiwa';
+        return $this->diff($old,$new);
+    }
+
+    public function testDiff() {
+        $data = ['html' => $this->test()];
+        return view('diff.diff', $data);
+    }
+
 }

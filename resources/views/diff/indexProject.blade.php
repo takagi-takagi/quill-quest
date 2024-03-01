@@ -10,9 +10,11 @@
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <form action="{{route('storeProject')}}" method="post">
                     @csrf
-                    <textarea name="name" cols="30" rows="10"></textarea>
+                    <h1>新規プロジェクト作成</h1>
+                    <label for="name">プロジェクト名: </label>
+                    <input type="text" name="name" id="name">
                     <x-primary-button>
-                        送信する
+                        送信
                     </x-primary-button>
                 </form>
             </div>

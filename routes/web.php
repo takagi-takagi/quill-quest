@@ -37,6 +37,8 @@ Route::get('/create', function () {
 });
 Route::post('/test3', [DiffController::class, 'store'])->name('test3');
 
-Route::post('/test4', [PostController::class, 'store'])->name('test4');
+Route::get('/test5/{projectName}', [DiffController::class, 'indexText'])->name('test5');
 
+Route::get('/indexProject', [DiffController::class, 'indexProject'])->name('indexProject');
+Route::post('/indexProject', [DiffController::class, 'storeProject'])->name('storeProject');
 require __DIR__.'/auth.php';

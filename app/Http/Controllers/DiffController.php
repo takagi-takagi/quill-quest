@@ -8,6 +8,7 @@ use Jfcherng\Diff\DiffHelper;
 use Jfcherng\Diff\Factory\RendererFactory;
 use Jfcherng\Diff\Renderer\RendererConstant;
 use App\Models\Text;
+use App\Models\Project;
 
 class DiffController extends Controller
 {
@@ -58,6 +59,21 @@ class DiffController extends Controller
         return view('diff.diff', $data);
     }
 
+    public function indexProject(Request $request) {
+        $projects = Project::where('user_id', auth()->id())->get();
+        return view('diff.indexProject', compact('projects'));
+    }
+
+    public function storeProject(Request $request) {
+        $validated = $request->validate([
+            'name' => 'required|max:100'
+        ]);
+        $validated['user_id'] = auth()->id();
+        $project = Project::create($validated);
+        return redirect()->route('indexProject');
+    }
+
+
     public function store(Request $request) {
         $validated = $request->validate([
             'body' => 'required|max:400'
@@ -67,6 +83,15 @@ class DiffController extends Controller
         $text = Text::create($validated);
         $old = 'こんにちは。'."\n".'aaabbb';
         $new = $validated['body'];
+        $data = ['html' => $this->diff($old,$new)];
+        return view('diff.diff', $data);
+    }
+
+    public function indexText($projectName) {
+        $projectId = Project::where('name',$projectName)->first()->id;
+        $texts = Text::where('project_id', $projectId)->orderBy('created_at', 'desc')->get();
+        $old = $texts[1]->body;
+        $new = $texts[0]->body;
         $data = ['html' => $this->diff($old,$new)];
         return view('diff.diff', $data);
     }

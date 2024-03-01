@@ -9,6 +9,11 @@ class Project extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'name',
+    ];
+
     public function texts() {
         return $this->hasMany(Text::class);
     }

@@ -35,6 +35,8 @@ Route::get('/test2', [DiffController::class, 'test2'])->name('test2');
 Route::get('/create', function () {
     return view('diff.create');
 });
-Route::post('/test3', [DiffController::class, 'test3'])->name('test3');
+Route::post('/test3', [DiffController::class, 'store'])->name('test3');
+
+Route::post('/test4', [PostController::class, 'store'])->name('test4');
 
 require __DIR__.'/auth.php';

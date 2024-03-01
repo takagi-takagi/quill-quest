@@ -10,7 +10,7 @@
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <form action="{{route('test3')}}" method="post">
                     @csrf
-                    <textarea name="post" cols="30" rows="10"></textarea>
+                    <textarea name="body" cols="30" rows="10"></textarea>
                     <x-primary-button>
                         送信する
                     </x-primary-button>

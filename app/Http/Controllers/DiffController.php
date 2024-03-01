@@ -7,6 +7,7 @@ use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\DiffHelper;
 use Jfcherng\Diff\Factory\RendererFactory;
 use Jfcherng\Diff\Renderer\RendererConstant;
+use App\Models\Text;
 
 class DiffController extends Controller
 {
@@ -53,6 +54,19 @@ class DiffController extends Controller
     public function test3(Request $request) {
         $old = 'こんにちは。'."\n".'aaabbb';
         $new = $request->post;
+        $data = ['html' => $this->diff($old,$new)];
+        return view('diff.diff', $data);
+    }
+
+    public function store(Request $request) {
+        $validated = $request->validate([
+            'body' => 'required|max:400'
+        ]);
+        $validated['project_id'] = 1;
+        $validated['is_posted'] = 1;
+        $text = Text::create($validated);
+        $old = 'こんにちは。'."\n".'aaabbb';
+        $new = $validated['body'];
         $data = ['html' => $this->diff($old,$new)];
         return view('diff.diff', $data);
     }

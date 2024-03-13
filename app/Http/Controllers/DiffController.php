@@ -74,17 +74,14 @@ class DiffController extends Controller
     }
 
 
-    public function storeText(Request $request) {
+    public function storeText(Request $request,$projectName) {
         $validated = $request->validate([
             'body' => 'required|max:400'
         ]);
         $validated['project_id'] = 1;
         $validated['is_posted'] = 1;
         $text = Text::create($validated);
-        $old = 'こんにちは。'."\n".'aaabbb';
-        $new = $validated['body'];
-        $data = ['html' => $this->diff($old,$new)];
-        return view('diff.diff', $data);
+        return redirect()->route('project.show', ['projectName' => $projectName]);
     }
 
     public function showProject($projectName) {

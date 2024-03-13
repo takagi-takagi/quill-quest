@@ -12,7 +12,16 @@
                     echo $html
                 @endphp
             </div>
-
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <form action="" method="post">
+                    @csrf
+                    新規テキスト作成:
+                    <textarea name="body"></textarea>
+                    <x-primary-button>
+                        送信する
+                    </x-primary-button>
+                </form>
+            </div>
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     <!-- @include('profile.partials.update-password-form') -->

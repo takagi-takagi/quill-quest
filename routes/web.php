@@ -35,11 +35,12 @@ Route::get('/test2', [DiffController::class, 'test2'])->name('test2');
 Route::get('/create', function () {
     return view('diff.create');
 });
-Route::post('/test3', [DiffController::class, 'store'])->name('test3');
 
 Route::get('/project', [DiffController::class, 'index'])->name('project.index');
 Route::post('/project', [DiffController::class, 'storeProject'])->name('project.store');
 
 Route::get('/project/{projectName}', [DiffController::class, 'showProject'])->name('project.show');
+
+Route::post('/project/{projectName}', [DiffController::class, 'storeText'])->name('text.store');
 
 require __DIR__.'/auth.php';

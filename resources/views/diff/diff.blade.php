@@ -22,6 +22,14 @@
                     </x-primary-button>
                 </form>
             </div>
+            @foreach($texts as $text)
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <div class="max-w-xl">
+                        <p>ID:{{$text->id}}</p>
+                        <p>{!! nl2br(e($text->body)) !!}</p>
+                    </div>
+                </div>
+            @endforeach
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     <!-- @include('profile.partials.update-password-form') -->

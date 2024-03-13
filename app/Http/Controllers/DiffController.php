@@ -89,7 +89,7 @@ class DiffController extends Controller
         $texts = Text::where('project_id', $projectId)->orderBy('created_at', 'desc')->get();
         $old = $texts[1]->body;
         $new = $texts[0]->body;
-        $data = ['html' => $this->diff($old,$new)];
+        $data = ['html' => $this->diff($old,$new), 'texts' => $texts];
         return view('diff.diff', $data);
     }
 

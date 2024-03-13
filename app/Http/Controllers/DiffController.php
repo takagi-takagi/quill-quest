@@ -59,7 +59,7 @@ class DiffController extends Controller
         return view('diff.diff', $data);
     }
 
-    public function indexProject(Request $request) {
+    public function index(Request $request) {
         $projects = Project::where('user_id', auth()->id())->get();
         return view('diff.indexProject', compact('projects'));
     }
@@ -70,11 +70,11 @@ class DiffController extends Controller
         ]);
         $validated['user_id'] = auth()->id();
         $project = Project::create($validated);
-        return redirect()->route('indexProject');
+        return redirect()->route('project.index');
     }
 
 
-    public function store(Request $request) {
+    public function storeText(Request $request) {
         $validated = $request->validate([
             'body' => 'required|max:400'
         ]);
@@ -87,7 +87,7 @@ class DiffController extends Controller
         return view('diff.diff', $data);
     }
 
-    public function indexText($projectName) {
+    public function showProject($projectName) {
         $projectId = Project::where('name',$projectName)->first()->id;
         $texts = Text::where('project_id', $projectId)->orderBy('created_at', 'desc')->get();
         $old = $texts[1]->body;

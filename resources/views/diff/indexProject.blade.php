@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <form action="{{route('storeProject')}}" method="post">
+                <form action="{{route('project.store')}}" method="post">
                     @csrf
                     <h1>新規プロジェクト作成</h1>
                     <label for="name">プロジェクト名: </label>
@@ -21,7 +21,7 @@
             @foreach($projects as $project)
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <div class="max-w-xl">
-                        <a href="{{route('test5', $project->name)}}">{{$project->name}}</a>
+                        <a href="{{route('project.show', $project->name)}}">{{$project->name}}</a>
                     </div>
                 </div>
             @endforeach

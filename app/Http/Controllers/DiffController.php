@@ -9,6 +9,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
 use Jfcherng\Diff\Renderer\RendererConstant;
 use App\Models\Text;
 use App\Models\Project;
+use OpenAI\Laravel\Facades\OpenAI;
 
 class DiffController extends Controller
 {
@@ -40,11 +41,21 @@ class DiffController extends Controller
         $result = DiffHelper::calculate($old, $new, $rendererName, $differOptions, $rendererOptions);
         return $result;
     }
+ 
+    private function generateResponse($inputText) {
+        $result = OpenAI::chat()->create([
+            'model' => 'gpt-3.5-turbo',
+            'messages' => [
+                ['role' => 'user', 'content' => $inputText],
+            ],
+        ]);
+        return $result['choices'][0]['message']['content'];
+    }
 
     public function test() {
         $old = 'This is the old string.'."\n".'aaaaaaaaa'."\n".'konnichiwa';
         $new = 'And this is the new one.'."\n".'aaaaaaaaab'."\n".'konnichiwa';
-        return $this->diff($old,$new);
+        return $this->generateResponse('「Aさん！ごめんね」を謝罪文として添削して下さい');
     }
 
     public function testDiff() {

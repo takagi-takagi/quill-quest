@@ -10,7 +10,8 @@
         "jfcherng/php-diff": "^6.15",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "openai-php/laravel": "^0.8.1"
     },
     "require-dev": {
         "askdkc/breezejp": "^1.8",

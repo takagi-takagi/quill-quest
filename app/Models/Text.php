@@ -12,7 +12,8 @@ class Text extends Model
     protected $fillable = [
         'project_id',
         'body',
-        'is_posted'
+        'is_posted',
+        'type'
     ];
 
     public function project() {

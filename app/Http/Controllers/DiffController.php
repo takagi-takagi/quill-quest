@@ -55,7 +55,7 @@ class DiffController extends Controller
     public function test() {
         $old = 'This is the old string.'."\n".'aaaaaaaaa'."\n".'konnichiwa';
         $new = 'And this is the new one.'."\n".'aaaaaaaaab'."\n".'konnichiwa';
-        return $this->generateResponse('「Aさん！ごめんね」を謝罪文として添削して下さい');
+        return $this->generateResponse('「Aさん！ごめんね」を文章の形式「招待状」として添削して下さい。出力は本文のみでお願いします');
     }
 
     public function testDiff() {
@@ -85,14 +85,14 @@ class DiffController extends Controller
     }
 
 
-    public function storeText(Request $request,$projectName) {
+    public function storeText(Request $request) {
         $validated = $request->validate([
             'body' => 'required|max:400'
         ]);
         $validated['project_id'] = 1;
         $validated['is_posted'] = 1;
         $text = Text::create($validated);
-        return redirect()->route('project.show', ['projectName' => $projectName]);
+        return back();
     }
 
     public function showProject($projectName) {
@@ -100,8 +100,18 @@ class DiffController extends Controller
         $texts = Text::where('project_id', $projectId)->orderBy('created_at', 'desc')->get();
         $old = $texts[1]->body;
         $new = $texts[0]->body;
-        $data = ['html' => $this->diff($old,$new), 'texts' => $texts];
+        $data = ['html' => $this->diff($old,$new), 'texts' => $texts,'projectName' => $projectName];
         return view('diff.diff', $data);
+    }
+    public function storeChatText(Request $request) {
+        if(empty($request->type)||$request->typeNull == true) {
+            $inputText='`'.$request->body.'`を添削して下さい。出力は本文のみでお願いします';
+        } else {
+            $inputText='`'.$request->body.'`を文章の形式`'.$request->type.'`として添削して下さい。出力は本文のみでお願いします';
+        }
+        $request->merge(['body' => $this->generateResponse($inputText)]);
+        $this->storeText($request);
+        return back();
     }
 
 }

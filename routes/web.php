@@ -43,4 +43,6 @@ Route::get('/project/{projectName}', [DiffController::class, 'showProject'])->na
 
 Route::post('/project/{projectName}', [DiffController::class, 'storeText'])->name('text.store');
 
+Route::post('/project/{projectName}/storeChatText', [DiffController::class, 'storeChatText'])->name('text.storeChatText');
+
 require __DIR__.'/auth.php';

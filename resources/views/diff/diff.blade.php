@@ -10,11 +10,17 @@
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <a href="../project">戻る</a>
             </div>
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                @php
-                    echo $html
-                @endphp
-            </div>
+            @if($html)
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    @php
+                        echo $html
+                    @endphp
+                </div>
+            @else
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    添削部分なし
+                </div>
+            @endif
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <form action="./{{$projectName}}/storeChatText" method="post">
                     @csrf

@@ -11,17 +11,17 @@
                 <a href="../project">戻る</a>
             </div>
             @if($html)
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg border-gray-500 border-2">
                     @php
                         echo $html
                     @endphp
                 </div>
             @else
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    添削部分なし
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg border-gray-500 border-2">
+                    変更点なし
                 </div>
             @endif
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg border-gray-400 border-2" >
                 <form action="./{{$projectName}}/storeChatText" method="post">
                     @csrf
                     <label for="type">形式:</label>
@@ -35,7 +35,7 @@
                 </form>
                 ※例：「友人への謝罪文」、「結婚式の招待文」など
             </div>
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg border-gray-400 border-2">
                 <form action="" method="post">
                     @csrf
                     新規テキスト作成:
@@ -47,9 +47,18 @@
             </div>
             @foreach($texts as $text)
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <div class="max-w-xl">
-                        <p>ID:{{$text->id}}</p>
-                        {!! nl2br(e($text->body)) !!}
+                    <div class="max-w-4xl">
+                        
+                        <div class="toggle-container cursor-pointer bg-gray-100 p-2 sm:p-4 shadow sm:rounded-lg">
+                            <div class="flex">
+                                <p>ID:{{$text->id}}</p>
+                                <svg class="toggle-button rotate-180 ml-2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <path d="M5 13 L10 8 L15 13" stroke="currentColor" stroke-width="2" fill="none"/>
+                                </svg>
+                            </div>
+                            <span class="initial-text overflow-hidden">{{$text->bodyHead()}}</span>
+                            <span class="hidden content">{!! nl2br(e($text->body)) !!}</span>
+                        </div>
                     </div>
                 </div>
             @endforeach

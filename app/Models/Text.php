@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Str;
 class Text extends Model
 {
     use HasFactory;
@@ -18,5 +18,8 @@ class Text extends Model
 
     public function project() {
         return $this->belongsTo(Project::class);
+    }
+    public function bodyHead() {
+        return Str::substr($this->body, 0, 50) . "... (" .Str::length($this->body). "文字)";
     }
 }

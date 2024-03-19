@@ -34,7 +34,7 @@ document.querySelectorAll('.copyButton').forEach(button => {
     button.addEventListener('click', function() {
         var parent = this.parentElement;
 
-        var textToCopy = parent.querySelector('.content').textContent;
+        var textToCopy = parent.parentElement.querySelector('.content').textContent;
 
         // テキストをクリップボードにコピー
         navigator.clipboard.writeText(textToCopy).then(() => {

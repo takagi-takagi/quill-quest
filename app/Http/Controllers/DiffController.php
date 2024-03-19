@@ -95,11 +95,21 @@ class DiffController extends Controller
         return back();
     }
 
-    public function showProject($projectName) {
+    public function showProject(Request $request,$projectName) {
         $projectId = Project::where('name',$projectName)->first()->id;
         $texts = Text::where('project_id', $projectId)->orderBy('created_at', 'desc')->get();
-        $old = $texts[1]->body;
-        $new = $texts[0]->body;
+        if ($request->has('old')) {
+            $oldId = $request->query('old');
+            $old = $texts->firstWhere('id', $oldId)->body;
+        } else {
+            $old = $texts[1]->body;
+        }
+        if ($request->has('new')) {
+            $newId = $request->query('new');
+            $new = $texts->firstWhere('id', $newId)->body;
+        } else {
+            $new = $texts[0]->body;
+        }
         $data = ['html' => $this->diff($old,$new), 'texts' => $texts,'projectName' => $projectName];
         return view('diff.diff', $data);
     }

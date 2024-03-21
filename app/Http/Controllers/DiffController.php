@@ -85,14 +85,26 @@ class DiffController extends Controller
     }
 
 
-    public function storeText(Request $request) {
+    public function storeText(Request $request,$projectName) {
+        $projectId = Project::where('name',$projectName)->first()->id;
         $validated = $request->validate([
             'body' => 'required|max:400'
         ]);
-        $validated['project_id'] = 1;
+        $validated['project_id'] = $projectId;
         $validated['is_posted'] = 1;
         $text = Text::create($validated);
-        return back();
+        $data = ['projectName' => $projectName];
+        if ($request->has('new')) {
+            $oldId = $request->query('new');
+            $newId = $text->id;
+            $newData = [
+                'old' => $request->new,
+                'new' => $text->id
+            ];
+            $data = array_merge($data, $newData);
+        }
+        
+        return redirect()->route('project.show', $data);
     }
 
     public function showProject(Request $request,$projectName) {
@@ -108,9 +120,10 @@ class DiffController extends Controller
             $newId = $request->query('new');
             $new = $texts->firstWhere('id', $newId)->body;
         } else {
+            $newId = $texts[0]->id;
             $new = $texts[0]->body;
         }
-        $data = ['html' => $this->diff($old,$new), 'texts' => $texts,'projectName' => $projectName];
+        $data = ['html' => $this->diff($old,$new), 'texts' => $texts,'projectName' => $projectName, 'newId' => $newId];
         return view('diff.diff', $data);
     }
     public function storeChatText(Request $request) {

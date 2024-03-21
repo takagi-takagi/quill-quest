@@ -31,7 +31,11 @@
                     <x-primary-button>
                         送信する
                     </x-primary-button>
-                    <input type="hidden" name="body" value="{{$texts[0]->body}}">
+                    @if(isset($newId))
+                        <input type="hidden" name="newId" value="{{$newId}}">
+                    @else
+                        <input type="hidden" name="body" value="{{$texts[0]->body}}">
+                    @endif
                 </form>
                 ※例：「友人への謝罪文」、「結婚式の招待文」など
             </div>

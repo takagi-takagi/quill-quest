@@ -84,27 +84,31 @@ class DiffController extends Controller
         return redirect()->route('project.index');
     }
 
-
-    public function storeText(Request $request,$projectName) {
+    public function storeText($data,$projectName,$queryNewId) {
         $projectId = Project::where('name',$projectName)->first()->id;
+        $data['project_id'] = $projectId;
+        
+        $newId = Text::create($data)->id;
+        
+        $showData = ['projectName' => $projectName];
+        if (isset($queryNewId)) {
+            $queryData = [
+                'old' => $queryNewId,
+                'new' => $newId
+            ];
+            $showData = array_merge($showData, $queryData);
+        }
+        
+        return redirect()->route('project.show', $showData);
+    }
+
+    public function storePlainText(Request $request,$projectName) {
         $validated = $request->validate([
             'body' => 'required|max:400'
         ]);
-        $validated['project_id'] = $projectId;
         $validated['is_posted'] = 1;
-        $text = Text::create($validated);
-        $data = ['projectName' => $projectName];
-        if ($request->has('new')) {
-            $oldId = $request->query('new');
-            $newId = $text->id;
-            $newData = [
-                'old' => $request->new,
-                'new' => $text->id
-            ];
-            $data = array_merge($data, $newData);
-        }
-        
-        return redirect()->route('project.show', $data);
+        $queryNewId = $request->query('new');
+        return $this->storeText($validated,$projectName,$queryNewId);
     }
 
     public function showProject(Request $request,$projectName) {
@@ -114,6 +118,7 @@ class DiffController extends Controller
             $oldId = $request->query('old');
             $old = $texts->firstWhere('id', $oldId)->body;
         } else {
+            $oldId = $texts[0]->id;
             $old = $texts[1]->body;
         }
         if ($request->has('new')) {
@@ -123,18 +128,35 @@ class DiffController extends Controller
             $newId = $texts[0]->id;
             $new = $texts[0]->body;
         }
-        $data = ['html' => $this->diff($old,$new), 'texts' => $texts,'projectName' => $projectName, 'newId' => $newId];
+        $data = ['html' => $this->diff($old,$new), 'texts' => $texts,'projectName' => $projectName, 'newId' =>$newId];
         return view('diff.diff', $data);
     }
-    public function storeChatText(Request $request) {
-        if(empty($request->type)||$request->typeNull == true) {
-            $inputText='`'.$request->body.'`を添削して下さい。出力は本文のみでお願いします';
+
+    public function storeChatText(Request $request,$projectName) {
+        if ($request->has('newId')) {
+            $queryNewId = $request->newId;
+            $body = Text::find($queryNewId)->body;
         } else {
-            $inputText='`'.$request->body.'`を文章の形式`'.$request->type.'`として添削して下さい。出力は本文のみでお願いします';
+            $body = $request->body;
+            $queryNewId = null;
         }
-        $request->merge(['body' => $this->generateResponse($inputText)]);
-        $this->storeText($request);
-        return back();
+        if(empty($request->type)||$request->typeNull == true) {
+            $inputText='`'.$body.'`を添削して下さい。出力は本文のみでお願いします';
+        } else {
+            $validated = $request->validate([
+                'type' => 'required|max:400'
+            ]);
+            $inputText='`'.$body.'`を文章の形式`'.$validated['type'].'`として添削して下さい。出力は本文のみでお願いします';
+        }
+        $newBody = $this->generateResponse($inputText);
+        $data = [
+            'body' => $newBody,
+            'is_posted' => 0,
+        ];
+        if(isset($validated['type'])) {
+            $data['type'] = $validated['type'];
+        }
+        return $this->storeText($data,$projectName,$queryNewId);
     }
 
 }

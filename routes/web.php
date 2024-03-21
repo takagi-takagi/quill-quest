@@ -41,7 +41,7 @@ Route::post('/project', [DiffController::class, 'storeProject'])->name('project.
 
 Route::get('/project/{projectName}', [DiffController::class, 'showProject'])->name('project.show');
 
-Route::post('/project/{projectName}', [DiffController::class, 'storeText'])->name('text.store');
+Route::post('/project/{projectName}', [DiffController::class, 'storePlainText'])->name('text.storePlainText');
 
 Route::post('/project/{projectName}/storeChatText', [DiffController::class, 'storeChatText'])->name('text.storeChatText');
 

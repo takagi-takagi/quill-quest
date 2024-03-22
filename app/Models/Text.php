@@ -10,6 +10,7 @@ class Text extends Model
     use HasFactory;
 
     protected $fillable = [
+        'project_text_id',
         'project_id',
         'body',
         'is_posted',

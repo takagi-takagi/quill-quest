@@ -87,8 +87,11 @@ class DiffController extends Controller
     public function storeText($data,$projectName,$queryNewId) {
         $projectId = Project::where('name',$projectName)->first()->id;
         $data['project_id'] = $projectId;
+
+        $maxUserTextId = Text::where('project_id', $projectId)->max('project_text_id');
+        $data['project_text_id'] = $maxUserTextId + 1;
         
-        $newId = Text::create($data)->id;
+        $newId = Text::create($data)->project_text_id;
         
         $showData = ['projectName' => $projectName];
         if (isset($queryNewId)) {
@@ -116,16 +119,16 @@ class DiffController extends Controller
         $texts = Text::where('project_id', $projectId)->orderBy('created_at', 'desc')->get();
         if ($request->has('old')) {
             $oldId = $request->query('old');
-            $old = $texts->firstWhere('id', $oldId)->body;
+            $old = $texts->firstWhere('project_text_id', $oldId)->body;
         } else {
             $oldId = $texts[0]->id;
             $old = $texts[1]->body;
         }
         if ($request->has('new')) {
             $newId = $request->query('new');
-            $new = $texts->firstWhere('id', $newId)->body;
+            $new = $texts->firstWhere('project_text_id', $newId)->body;
         } else {
-            $newId = $texts[0]->id;
+            $newId = $texts[0]->project_text_id;
             $new = $texts[0]->body;
         }
         $data = ['html' => $this->diff($old,$new), 'texts' => $texts,'projectName' => $projectName, 'newId' =>$newId];

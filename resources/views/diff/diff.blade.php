@@ -55,7 +55,7 @@
                         
                         <div class="toggle-container cursor-pointer bg-gray-100 p-2 sm:p-4 shadow sm:rounded-lg">
                             <div class="flex">
-                                <p>ID:{{$text->id}}</p>
+                                <p>ID:{{$text->project_text_id}}</p>
                                 <svg class="toggle-button rotate-180 ml-2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                                     <path d="M5 13 L10 8 L15 13" stroke="currentColor" stroke-width="2" fill="none"/>
                                 </svg>
@@ -65,13 +65,13 @@
                         </div>
                         <div class="button-container hidden flex space-x-4">
                             <form action="" method="post">
-                                <input type="hidden" name="setToOld" value="{{$text->id}}">
+                                <input type="hidden" name="setToOld" value="{{$text->project_text_id}}">
                                 <x-primary-button>
                                     旧にセットする
                                 </x-primary-button>
                             </form>
                             <form action="" method="post">
-                                <input type="hidden" name="setToOld" value="{{$text->id}}">
+                                <input type="hidden" name="setToOld" value="{{$text->project_text_id}}">
                                 <x-primary-button>
                                     新にセットする
                                 </x-primary-button>

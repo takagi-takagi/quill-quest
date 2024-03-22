@@ -120,6 +120,7 @@ class DiffController extends Controller
         $texts = Text::where('project_id', $projectId)->orderBy('created_at', 'desc')->get();
         if ($request->has('old')) {
             $oldId = $request->query('old');
+            $data['oldId'] = $oldId;
             $old = $texts->firstWhere('project_text_id', $oldId)->body;
         } elseif (isset($texts[1])) {
             $old = $texts[1]->body;
@@ -139,6 +140,17 @@ class DiffController extends Controller
         $newData = ['texts' => $texts,'projectName' => $projectName];
         $data = array_merge($data, $newData);
         return view('diff.diff', $data);
+    }
+
+    public function setQuery(Request $request,$projectName) {
+        $data['projectName'] = $projectName;
+        if ($request->has('setToOld')) {
+            $data['old'] = $request->setToOld;
+        }
+        if ($request->has('setToNew')) {
+            $data['new'] = $request->setToNew;
+        }
+        return redirect()->route('project.show', $data);
     }
 
     public function storeChatText(Request $request,$projectName) {

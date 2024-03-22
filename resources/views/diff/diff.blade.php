@@ -33,7 +33,7 @@
                     </x-primary-button>
                     @if(isset($newId))
                         <input type="hidden" name="newId" value="{{$newId}}">
-                    @else
+                    @elseif(isset($texts[0]))
                         <input type="hidden" name="body" value="{{$texts[0]->body}}">
                     @endif
                 </form>

@@ -118,22 +118,21 @@ class DiffController extends Controller
         $data = [];
         $projectId = Project::where('name',$projectName)->first()->id;
         $texts = Text::where('project_id', $projectId)->orderBy('created_at', 'desc')->get();
-        if ($request->has('old')) {
+        if ($request->has('old') && $request->has('new')) {
             $oldId = $request->query('old');
             $old = $texts->firstWhere('project_text_id', $oldId)->body;
-        } else {
-            $oldId = $texts[0]->id;
-            $old = $texts[1]->body;
-        }
-        if ($request->has('new')) {
             $newId = $request->query('new');
             $new = $texts->firstWhere('project_text_id', $newId)->body;
             $data['newId'] = $newId;
-        } else {
-            $newId = $texts[0]->project_text_id;
+            $data['html'] = $this->diff($old,$new);
+        } elseif(isset($texts[1])) {
+            $old = $texts[1]->body;
             $new = $texts[0]->body;
+            $data['html'] = $this->diff($old,$new);
+        } else {
+            $data['html'] = '<p>ここに変更点が表示されます</p>';
         }
-        $newData = ['html' => $this->diff($old,$new), 'texts' => $texts,'projectName' => $projectName];
+        $newData = ['texts' => $texts,'projectName' => $projectName];
         $data = array_merge($data, $newData);
         return view('diff.diff', $data);
     }

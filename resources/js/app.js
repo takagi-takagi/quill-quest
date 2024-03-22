@@ -39,10 +39,10 @@ document.querySelectorAll('.copyButton').forEach(button => {
         // テキストをクリップボードにコピー
         navigator.clipboard.writeText(textToCopy).then(() => {
             // コピー成功時の処理
-            this.innerText = 'コピーしました！'; // ボタンのテキストを更新
+            this.innerText = 'コピー成功'; // ボタンのテキストを更新
         }).catch(err => {
             // コピー失敗時の処理 
-            this.innerText = 'コピーに失敗しました';
+            this.innerText = 'コピー失敗';
         });
         clearTimeout(timerId);
         // 一定時間後にボタンのテキストを元に戻す

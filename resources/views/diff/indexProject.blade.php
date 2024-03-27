@@ -8,11 +8,14 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <form action="{{route('project.store')}}" method="post">
+                <h2 class="text-lg font-medium text-gray-900">
+                        新規プロジェクト作成
+                    </h2>
+                <form action="{{route('project.store')}}" method="post" class="mt-6 space-y-6">
                     @csrf
-                    <h1>新規プロジェクト作成</h1>
-                    <label for="name">プロジェクト名: </label>
-                    <input type="text" name="name" id="name">
+                    <x-input-label for="name" value="プロジェクト名" />
+                    <x-text-input  type="text" name="name" id="name" class="mt-1 block w-full"/>
+                    <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     <x-primary-button>
                         送信
                     </x-primary-button>

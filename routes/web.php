@@ -27,6 +27,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/project', [DiffController::class, 'index'])->name('project.index');
+    Route::post('/project', [DiffController::class, 'storeProject'])->name('project.store');
+
+    Route::get('/project/{projectName}', [DiffController::class, 'showProject'])->name('project.show');
+
+    Route::post('/project/{projectName}', [DiffController::class, 'storePlainText'])->name('text.storePlainText');
+
+    Route::post('/project/{projectName}/setQuery', [DiffController::class, 'setQuery']);
+
+    Route::post('/project/{projectName}/storeChatText', [DiffController::class, 'storeChatText'])->name('text.storeChatText');
 });
 
 
@@ -36,15 +47,5 @@ Route::get('/create', function () {
     return view('diff.create');
 });
 
-Route::get('/project', [DiffController::class, 'index'])->name('project.index');
-Route::post('/project', [DiffController::class, 'storeProject'])->name('project.store');
-
-Route::get('/project/{projectName}', [DiffController::class, 'showProject'])->name('project.show');
-
-Route::post('/project/{projectName}', [DiffController::class, 'storePlainText'])->name('text.storePlainText');
-
-Route::post('/project/{projectName}/setQuery', [DiffController::class, 'setQuery']);
-
-Route::post('/project/{projectName}/storeChatText', [DiffController::class, 'storeChatText'])->name('text.storeChatText');
 
 require __DIR__.'/auth.php';

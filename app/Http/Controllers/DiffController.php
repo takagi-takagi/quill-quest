@@ -58,9 +58,13 @@ class DiffController extends Controller
     }
 
     public function storeProject(Request $request) {
+        $messages = [
+            'name.required' => 'プロジェクト名は必須です。',
+            'name.max' => 'プロジェクト名は最大100文字までです。'
+        ];
         $validated = $request->validate([
             'name' => 'required|max:100'
-        ]);
+        ], $messages);
         $validated['user_id'] = auth()->id();
         $project = Project::create($validated);
         return redirect()->route('project.index');

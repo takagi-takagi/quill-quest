@@ -40,12 +40,4 @@ Route::middleware('auth')->group(function () {
     Route::post('/project/{projectName}/storeChatText', [DiffController::class, 'storeChatText'])->name('text.storeChatText');
 });
 
-
-Route::get('/test', [DiffController::class, 'test']);
-Route::get('/test2', [DiffController::class, 'test2'])->name('test2');
-Route::get('/create', function () {
-    return view('diff.create');
-});
-
-
 require __DIR__.'/auth.php';

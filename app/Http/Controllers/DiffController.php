@@ -52,24 +52,6 @@ class DiffController extends Controller
         return $result['choices'][0]['message']['content'];
     }
 
-    public function test() {
-        $old = 'This is the old string.'."\n".'aaaaaaaaa'."\n".'konnichiwa';
-        $new = 'And this is the new one.'."\n".'aaaaaaaaab'."\n".'konnichiwa';
-        return $this->generateResponse('「Aさん！ごめんね」を文章の形式「招待状」として添削して下さい。出力は本文のみでお願いします');
-    }
-
-    public function testDiff() {
-        $data = ['html' => $this->test()];
-        return view('diff.diff', $data);
-    }
-
-    public function test3(Request $request) {
-        $old = 'こんにちは。'."\n".'aaabbb';
-        $new = $request->post;
-        $data = ['html' => $this->diff($old,$new)];
-        return view('diff.diff', $data);
-    }
-
     public function index(Request $request) {
         $projects = Project::where('user_id', auth()->id())->get();
         return view('diff.indexProject', compact('projects'));

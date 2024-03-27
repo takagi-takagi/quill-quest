@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                <a href="{{ route('project.index') }}">
+                <a href="{{ route('welcome') }}">
                     <h1 class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Quill-Quest</h1>
                 </a>
             </div>

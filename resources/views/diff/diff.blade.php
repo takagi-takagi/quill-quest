@@ -7,9 +7,11 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <a href="../project">戻る</a>
-            </div>
+            <x-responsive-project-link href="../project">
+                <div class="max-w-xl">
+                    プロジェクト一覧に戻る
+                </div>
+            </x-responsive-project-link>
             @if($html)
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg border-gray-500 border-2">
                     @php
@@ -24,11 +26,16 @@
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg border-gray-400 border-2" >
                 <form action="./{{$projectName}}/storeChatText" method="post">
                     @csrf
-                    <label for="type">形式:</label>
-                    <input type="text" name="type" id="type">として「新」の文章を添削する
-                    <input type="checkbox" name="typeNull" id="typeNull">
-                    <label for="typeNull">形式なし</label>
-                    <x-primary-button>
+                    <x-input-label for="type" value="形式:" />
+                    <div class="flex items-center mt-1">
+                        <x-text-input id="name" name="name" type="text" class="flex-1"/>
+                        <span class="font-medium text-sm text-gray-700">として「新」の文章を添削する</span>
+                    </div>
+                    <label for="typeNull" class="flex items-center mt-2">
+                        <input id="typeNull" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="typeNull">
+                        <span class="ms-2 text-sm text-gray-600">形式なし</span>
+                    </label>
+                    <x-primary-button class="block mt-4">
                         送信する
                     </x-primary-button>
                     @if(isset($newId))
@@ -37,13 +44,15 @@
                         <input type="hidden" name="body" value="{{$texts[0]->body}}">
                     @endif
                 </form>
-                ※例：「友人への謝罪文」、「結婚式の招待文」など
+                <p class="mt-1 text-sm text-gray-600">
+                    ※例：「友人への謝罪文」、「結婚式の招待文」など
+                </p>
             </div>
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg border-gray-400 border-2">
                 <form action="" method="post">
                     @csrf
-                    新規テキスト作成:
-                    <textarea name="body"></textarea>
+                    <x-input-label for="body" value="新規テキスト作成:" />
+                    <textarea name="body" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full"></textarea>
                     <x-primary-button>
                         送信する
                     </x-primary-button>
@@ -51,9 +60,8 @@
             </div>
             @foreach($texts as $text)
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <div class="max-w-4xl">
-                        
-                        <div class="toggle-container cursor-pointer bg-gray-100 p-2 sm:p-4 shadow sm:rounded-lg">
+                    <div class="w-full">
+                        <x-text-container>
                             <div class="flex">
                                 <p>ID:{{$text->project_text_id}}</p>
                                 <svg class="toggle-button rotate-180 ml-2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
@@ -62,8 +70,8 @@
                             </div>
                             <span class="initial-text overflow-hidden">{{$text->bodyHead()}}</span>
                             <span class="hidden content">{!! nl2br(e($text->body)) !!}</span>
-                        </div>
-                        <div class="button-container hidden flex space-x-4">
+                        </x-text-container>
+                        <div class="button-container hidden flex space-x-4 w-full">
                             <form action="./{{$projectName}}/setQuery" method="post">
                                 @csrf
                                 <input type="hidden" name="setToOld" value="{{$text->project_text_id}}">

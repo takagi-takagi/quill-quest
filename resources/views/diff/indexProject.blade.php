@@ -22,11 +22,11 @@
                 </form>
             </div>
             @foreach($projects as $project)
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <x-responsive-project-link :href="route('project.show', $project->name)">
                     <div class="max-w-xl">
-                        <a href="{{route('project.show', $project->name)}}">{{$project->name}}</a>
+                        {{$project->name}}
                     </div>
-                </div>
+                </x-responsive-project-link>
             @endforeach
         </div>
     </div>

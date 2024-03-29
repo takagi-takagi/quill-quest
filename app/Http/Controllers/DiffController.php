@@ -53,7 +53,7 @@ class DiffController extends Controller
     }
 
     public function index(Request $request) {
-        $projects = Project::where('user_id', auth()->id())->get();
+        $projects = Project::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
         return view('diff.indexProject', compact('projects'));
     }
 

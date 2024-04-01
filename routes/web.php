@@ -38,6 +38,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/project/{id}/setQuery', [DiffController::class, 'setQuery']);
 
     Route::post('/project/{id}/storeChatText', [DiffController::class, 'storeChatText'])->name('text.storeChatText');
+
+    Route::delete('/project/{project}', [DiffController::class, 'destroyProject'])->name('project.destroy');
+
+    Route::delete('/text/{text}', [DiffController::class, 'destroyText'])->name('text.destroy');
 });
 
 require __DIR__.'/auth.php';

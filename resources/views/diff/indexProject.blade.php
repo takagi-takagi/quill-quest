@@ -26,6 +26,13 @@
                     <div class="w-full">
                         <p>ID:{{$project->user_project_id}}</p>
                         <p>{{$project->name}}</p>
+                        <form action="{{route('project.destroy',$project)}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <x-danger-button>
+                                    削除する
+                                </x-danger-button>
+                            </form>
                     </div>
                 </x-responsive-project-link>
             @endforeach

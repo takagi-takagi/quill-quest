@@ -169,4 +169,14 @@ class DiffController extends Controller
         return $this->storeText($data,$id,$queryNewId);
     }
 
+    public function destroyProject(Project $project) {
+        $project->delete();
+        return back();
+    }
+
+    public function destroyText(Text $text) {
+        $text->delete();
+        return back();
+    }
+
 }

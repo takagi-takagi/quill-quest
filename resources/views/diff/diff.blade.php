@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <x-responsive-project-link href="../project">
                 <div class="max-w-xl">
-                    プロジェクト一覧に戻る
+                    フォルダ一覧に戻る
                 </div>
             </x-responsive-project-link>
             @if($html)

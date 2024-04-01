@@ -61,10 +61,9 @@ class DiffController extends Controller
         $messages = [
             'name.required' => 'プロジェクト名は必須です。',
             'name.max' => 'プロジェクト名は最大100文字までです。',
-            'name.unique' => 'このプロジェクト名は既に存在しています。'
         ];
         $validated = $request->validate([
-            'name' => 'required|max:100|unique:projects,name'
+            'name' => 'required|max:100'
         ], $messages);
         $validated['user_id'] = auth()->id();
         $maxUserProjectId = Project::where('user_id', auth()->id())->max('user_project_id');

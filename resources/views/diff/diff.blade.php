@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{$projectName}}
+            {{$project->name}}
         </h2>
     </x-slot>
 
@@ -24,7 +24,7 @@
                 </div>
             @endif
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg border-gray-400 border-2" >
-                <form action="./{{$projectName}}/storeChatText" method="post">
+                <form action="./{{$project->user_project_id}}/storeChatText" method="post">
                     @csrf
                     <x-input-label for="type" value="形式:" />
                     <div class="flex items-center mt-1">
@@ -72,7 +72,7 @@
                             <span class="hidden content">{!! nl2br(e($text->body)) !!}</span>
                         </x-text-container>
                         <div class="button-container hidden flex space-x-4 w-full">
-                            <form action="./{{$projectName}}/setQuery" method="post">
+                            <form action="./{{$project->user_project_id}}/setQuery" method="post">
                                 @csrf
                                 <input type="hidden" name="setToOld" value="{{$text->project_text_id}}">
                                 <x-primary-button>
@@ -82,7 +82,7 @@
                                     <input type="hidden" name="setToNew" value="{{$newId}}">
                                 @endif
                             </form>
-                            <form action="./{{$projectName}}/setQuery" method="post">
+                            <form action="./{{$project->user_project_id}}/setQuery" method="post">
                                 @csrf
                                 <input type="hidden" name="setToNew" value="{{$text->project_text_id}}">
                                 <x-primary-button>

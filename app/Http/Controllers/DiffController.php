@@ -67,20 +67,22 @@ class DiffController extends Controller
             'name' => 'required|max:100|unique:projects,name'
         ], $messages);
         $validated['user_id'] = auth()->id();
+        $maxUserProjectId = Project::where('user_id', auth()->id())->max('user_project_id');
+        $validated['user_project_id'] = $maxUserProjectId + 1;
         $project = Project::create($validated);
         return redirect()->route('project.index');
     }
 
-    public function storeText($data,$projectName,$queryNewId) {
-        $projectId = Project::where('name',$projectName)->first()->id;
+    public function storeText($data,$id,$queryNewId) {
+        $projectId = Project::where('user_id', auth()->id())->where('user_project_id', $id)->first()->id;
         $data['project_id'] = $projectId;
 
-        $maxUserTextId = Text::where('project_id', $projectId)->max('project_text_id');
-        $data['project_text_id'] = $maxUserTextId + 1;
+        $maxProjectTextId = Text::where('project_id', $projectId)->max('project_text_id');
+        $data['project_text_id'] = $maxProjectTextId + 1;
         
         $newId = Text::create($data)->project_text_id;
         
-        $showData = ['projectName' => $projectName];
+        $showData = ['id' => $id];
         if (isset($queryNewId)) {
             $queryData = [
                 'old' => $queryNewId,
@@ -92,19 +94,19 @@ class DiffController extends Controller
         return redirect()->route('project.show', $showData);
     }
 
-    public function storePlainText(Request $request,$projectName) {
+    public function storePlainText(Request $request,$id) {
         $validated = $request->validate([
             'body' => 'required|max:400'
         ]);
         $validated['is_posted'] = 1;
         $queryNewId = $request->query('new');
-        return $this->storeText($validated,$projectName,$queryNewId);
+        return $this->storeText($validated,$id,$queryNewId);
     }
 
-    public function showProject(Request $request,$projectName) {
+    public function showProject(Request $request,$id) {
+        $project = Project::where('user_id', auth()->id())->where('user_project_id', $id)->first();
         $data = [];
-        $projectId = Project::where('name',$projectName)->first()->id;
-        $texts = Text::where('project_id', $projectId)->orderBy('created_at', 'desc')->get();
+        $texts = Text::where('project_id', $project->id)->orderBy('created_at', 'desc')->get();
         if ($request->has('old')) {
             $oldId = $request->query('old');
             $data['oldId'] = $oldId;
@@ -124,13 +126,13 @@ class DiffController extends Controller
         } else {
             $data['html'] = '<p>ここに変更点が表示されます</p>';
         }
-        $newData = ['texts' => $texts,'projectName' => $projectName];
+        $newData = ['texts' => $texts,'project' => $project];
         $data = array_merge($data, $newData);
         return view('diff.diff', $data);
     }
 
-    public function setQuery(Request $request,$projectName) {
-        $data['projectName'] = $projectName;
+    public function setQuery(Request $request,$id) {
+        $data['id'] = $id;
         if ($request->has('setToOld')) {
             $data['old'] = $request->setToOld;
         }
@@ -140,7 +142,7 @@ class DiffController extends Controller
         return redirect()->route('project.show', $data);
     }
 
-    public function storeChatText(Request $request,$projectName) {
+    public function storeChatText(Request $request,$id) {
         if ($request->has('newId')) {
             $queryNewId = $request->newId;
             $body = Text::find($queryNewId)->body;
@@ -164,7 +166,7 @@ class DiffController extends Controller
         if(isset($validated['type'])) {
             $data['type'] = $validated['type'];
         }
-        return $this->storeText($data,$projectName,$queryNewId);
+        return $this->storeText($data,$id,$queryNewId);
     }
 
 }

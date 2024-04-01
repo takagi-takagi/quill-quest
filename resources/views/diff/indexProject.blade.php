@@ -22,7 +22,7 @@
                 </form>
             </div>
             @foreach($projects as $project)
-                <x-responsive-project-link :href="route('project.show', $project->name)">
+                <x-responsive-project-link :href="route('project.show', $project->user_project_id)">
                     <div class="max-w-xl">
                         {{$project->name}}
                     </div>

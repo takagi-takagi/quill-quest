@@ -23,8 +23,9 @@
             </div>
             @foreach($projects as $project)
                 <x-responsive-project-link :href="route('project.show', $project->user_project_id)">
-                    <div class="max-w-xl">
-                        {{$project->name}}
+                    <div class="w-full">
+                        <p>ID:{{$project->user_project_id}}</p>
+                        <p>{{$project->name}}</p>
                     </div>
                 </x-responsive-project-link>
             @endforeach

@@ -39,7 +39,7 @@ document.querySelectorAll('.copyButton').forEach(button => {
         // テキストをクリップボードにコピー
         navigator.clipboard.writeText(textToCopy).then(() => {
             // コピー成功時の処理
-            this.innerText = 'コピー成功'; // ボタンのテキストを更新
+            this.innerText = 'コピーに成功しました！'; // ボタンのテキストを更新
         }).catch(err => {
             // コピー失敗時の処理 
             this.innerText = 'コピー失敗';

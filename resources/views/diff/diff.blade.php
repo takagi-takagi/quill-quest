@@ -69,7 +69,7 @@
                                 </svg>
                             </div>
                             <span class="initial-text overflow-hidden">{{$text->bodyHead()}}</span>
-                            <span class="hidden content">{!! nl2br(e($text->body)) !!}</span>
+                            <span class="hidden content break-words">{!! nl2br(e($text->body)) !!}</span>
                         </x-text-container>
                         <div class="button-container hidden flex space-x-4 w-full">
                             <form action="./{{$project->user_project_id}}/setQuery" method="post">

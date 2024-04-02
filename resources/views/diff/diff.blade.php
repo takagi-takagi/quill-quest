@@ -31,9 +31,11 @@
                         <x-text-input id="name" name="name" type="text" class="flex-1"/>
                         <span class="font-medium text-sm text-gray-700">として「新」の文章を添削する</span>
                     </div>
+                    <x-input-error class="mt-2" :messages="$errors->get('type')" />
+                    <span class="text-sm text-gray-600">もしくは</span>
                     <label for="typeNull" class="flex items-center mt-2">
                         <input id="typeNull" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="typeNull">
-                        <span class="ms-2 text-sm text-gray-600">形式なし</span>
+                        <span class="ms-2 font-medium text-sm text-gray-700">形式なし</span>
                     </label>
                     <x-primary-button class="block mt-4">
                         送信する
@@ -52,7 +54,10 @@
                 <form action="" method="post">
                     @csrf
                     <x-input-label for="body" value="新規テキスト作成:" />
-                    <textarea name="body" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full"></textarea>
+                    <textarea name="body" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
+                        {{old('body')}}
+                    </textarea>
+                    <x-input-error class="mt-2" :messages="$errors->get('body')" />
                     <x-primary-button>
                         送信する
                     </x-primary-button>

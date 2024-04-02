@@ -94,9 +94,13 @@ class DiffController extends Controller
     }
 
     public function storePlainText(Request $request,$id) {
+        $messages = [
+            'body.required' => 'テキストは必須です。',
+            'body.max' => 'テキストは最大100文字までです。',
+        ];
         $validated = $request->validate([
-            'body' => 'required|max:400'
-        ]);
+            'body' => 'required|max:100'
+        ], $messages);
         $validated['is_posted'] = 1;
         $queryNewId = $request->query('new');
         return $this->storeText($validated,$id,$queryNewId);
@@ -149,12 +153,16 @@ class DiffController extends Controller
             $body = $request->body;
             $queryNewId = null;
         }
-        if(empty($request->type)||$request->typeNull == true) {
+        if($request->typeNull == true) {
             $inputText='`'.$body.'`を添削して下さい。出力は本文のみでお願いします';
         } else {
+            $messages = [
+                'type.required' => '形式が入力されていません。',
+                'type.max' => '形式は最大100文字までです。',
+            ];
             $validated = $request->validate([
-                'type' => 'required|max:400'
-            ]);
+                'type' => 'required|max:100'
+            ],$messages);
             $inputText='`'.$body.'`を文章の形式`'.$validated['type'].'`として添削して下さい。出力は本文のみでお願いします';
         }
         $newBody = $this->generateResponse($inputText);

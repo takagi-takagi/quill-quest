@@ -14,7 +14,7 @@
                 <form action="{{route('project.store')}}" method="post" class="mt-6 space-y-6">
                     @csrf
                     <x-input-label for="name" value="フォルダ名" />
-                    <x-text-input  type="text" name="name" id="name" class="mt-1 block w-full"/>
+                    <x-text-input  type="text" name="name" id="name" class="mt-1 block w-full" value="{{old('body')}}"/>
                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     <x-primary-button>
                         送信

@@ -37,8 +37,8 @@
                         <input id="typeNull" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="typeNull">
                         <span class="ms-2 font-medium text-sm text-gray-700">形式なし</span>
                     </label>
-                    <x-primary-button class="block mt-4">
-                        送信する
+                    <x-primary-button class="normal-case mt-4">
+                        ChatGPTで文章を生成する
                     </x-primary-button>
                     @if(isset($newId))
                         <input type="hidden" name="newId" value="{{$newId}}">
@@ -47,7 +47,7 @@
                     @endif
                 </form>
                 <p class="mt-1 text-sm text-gray-600">
-                    ※例：「友人への謝罪文」、「結婚式の招待文」など
+                    ※形式例：「友人への謝罪文」、「結婚式の招待文」など
                 </p>
             </div>
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg border-gray-400 border-2">

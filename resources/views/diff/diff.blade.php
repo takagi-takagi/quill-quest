@@ -12,6 +12,11 @@
                     フォルダ一覧に戻る
                 </div>
             </x-responsive-project-link>
+            @if(session('message'))
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg text-lg font-medium text-red-400">
+                    {{session('message')}}
+                </div>
+            @endif
             @if($html)
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg border-gray-500 border-2">
                     @php
@@ -54,9 +59,7 @@
                 <form action="" method="post">
                     @csrf
                     <x-input-label for="body" value="新規テキスト作成:" />
-                    <textarea name="body" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
-                        {{old('body')}}
-                    </textarea>
+                    <textarea name="body" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">{{old('body')}}</textarea>
                     <x-input-error class="mt-2" :messages="$errors->get('body')" />
                     <x-primary-button>
                         送信する

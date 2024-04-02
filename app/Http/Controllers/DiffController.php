@@ -69,7 +69,7 @@ class DiffController extends Controller
         $maxUserProjectId = Project::where('user_id', auth()->id())->max('user_project_id');
         $validated['user_project_id'] = $maxUserProjectId + 1;
         $project = Project::create($validated);
-        return redirect()->route('project.index');
+        return redirect()->route('project.index')->with('message', 'フォルダを作成しました。');
     }
 
     public function storeText($data,$id,$queryNewId) {
@@ -103,7 +103,7 @@ class DiffController extends Controller
         ], $messages);
         $validated['is_posted'] = 1;
         $queryNewId = $request->query('new');
-        return $this->storeText($validated,$id,$queryNewId);
+        return $this->storeText($validated,$id,$queryNewId)->with('message', 'テキストを作成しました。');
     }
 
     public function showProject(Request $request,$id) {
@@ -173,17 +173,17 @@ class DiffController extends Controller
         if(isset($validated['type'])) {
             $data['type'] = $validated['type'];
         }
-        return $this->storeText($data,$id,$queryNewId);
+        return $this->storeText($data,$id,$queryNewId)->with('message', 'テキストを生成しました。');
     }
 
     public function destroyProject(Project $project) {
         $project->delete();
-        return back();
+        return back()->with('message', 'ID:' . $project->user_project_id . ' ' . $project->name . 'を削除しました。');
     }
 
     public function destroyText(Text $text) {
         $text->delete();
-        return back();
+        return back()->with('message', 'ID:' . $text->project_text_id . 'を削除しました。');
     }
 
 }

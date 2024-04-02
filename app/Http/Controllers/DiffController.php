@@ -142,6 +142,12 @@ class DiffController extends Controller
         if ($request->has('setToNew')) {
             $data['new'] = $request->setToNew;
         }
+        if ($request->has('oldButton')) {
+            $request->session()->flash('message','旧にID:'.$data['old']. 'をセットしました。');
+        }
+        if ($request->has('newButton')) {
+            $request->session()->flash('message','新にID:'.$data['new']. 'をセットしました。');
+        }
         return redirect()->route('project.show', $data);
     }
 

@@ -33,7 +33,7 @@
                     @csrf
                     <x-input-label for="type" value="形式:" />
                     <div class="flex items-center mt-1">
-                        <x-text-input id="name" name="name" type="text" class="flex-1"/>
+                        <x-text-input id="type" name="type" type="text" class="flex-1"/>
                         <span class="font-medium text-sm text-gray-700">として「新」の文章を添削する</span>
                     </div>
                     <x-input-error class="mt-2" :messages="$errors->get('type')" />

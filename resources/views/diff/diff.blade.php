@@ -79,37 +79,50 @@
                             <span class="initial-text overflow-hidden">{{$text->bodyHead()}}</span>
                             <span class="hidden content break-words">{!! nl2br(e($text->body)) !!}</span>
                         </x-text-container>
-                        <div class="button-container hidden flex space-x-4 w-full">
-                            <form action="./{{$project->user_project_id}}/setQuery" method="post">
-                                @csrf
-                                <input type="hidden" name="setToOld" value="{{$text->project_text_id}}">
-                                <x-primary-button>
-                                    旧にセットする
-                                </x-primary-button>
-                                @if(isset($newId))
-                                    <input type="hidden" name="setToNew" value="{{$newId}}">
-                                    <input type="hidden" name="oldButton" value="true">
+                        <div class="button-container hidden  w-full mt-2 ms-4">
+                            <div class="font-medium text-sm text-gray-700">
+                                @if($text->is_posted == true)
+                                    <p>自分で投稿した文章</p>
+                                @else
+                                    @if($text->type == null)
+                                        <p class="text-red-400">生成された文章(形式:<span class="text-gray-400">なし</span>)</p>
+                                    @else
+                                        <p class="text-red-400">生成された文章(形式:{{$text->type}})</p>
+                                    @endif
                                 @endif
-                            </form>
-                            <form action="./{{$project->user_project_id}}/setQuery" method="post">
-                                @csrf
-                                <input type="hidden" name="setToNew" value="{{$text->project_text_id}}">
-                                <x-primary-button>
-                                    新にセットする
-                                </x-primary-button>
-                                @if(isset($oldId))
-                                    <input type="hidden" name="setToOld" value="{{$oldId}}">
-                                    <input type="hidden" name="newButton" value="true">
-                                @endif
-                            </form>
-                            <button class="copyButton w-44 text-center justify-center inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">コピーする</button>
-                            <form action="{{route('text.destroy',$text)}}" method="post">
-                                @csrf
-                                @method('delete')
-                                <x-danger-button>
-                                    削除する
-                                </x-danger-button>
-                            </form>
+                            </div>
+                            <div class="flex space-x-4 mt-2">
+                                <form action="./{{$project->user_project_id}}/setQuery" method="post">
+                                    @csrf
+                                    <input type="hidden" name="setToOld" value="{{$text->project_text_id}}">
+                                    <x-primary-button>
+                                        旧にセットする
+                                    </x-primary-button>
+                                    @if(isset($newId))
+                                        <input type="hidden" name="setToNew" value="{{$newId}}">
+                                        <input type="hidden" name="oldButton" value="true">
+                                    @endif
+                                </form>
+                                <form action="./{{$project->user_project_id}}/setQuery" method="post">
+                                    @csrf
+                                    <input type="hidden" name="setToNew" value="{{$text->project_text_id}}">
+                                    <x-primary-button>
+                                        新にセットする
+                                    </x-primary-button>
+                                    @if(isset($oldId))
+                                        <input type="hidden" name="setToOld" value="{{$oldId}}">
+                                        <input type="hidden" name="newButton" value="true">
+                                    @endif
+                                </form>
+                                <button class="copyButton w-44 text-center justify-center inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">コピーする</button>
+                                <form action="{{route('text.destroy',$text)}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <x-danger-button>
+                                        削除する
+                                    </x-danger-button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

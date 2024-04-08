@@ -59,8 +59,8 @@ class DiffController extends Controller
 
     public function storeProject(Request $request) {
         $messages = [
-            'name.required' => 'プロジェクト名は必須です。',
-            'name.max' => 'プロジェクト名は最大100文字までです。',
+            'name.required' => 'フォルダ名は必須です。',
+            'name.max' => 'フォルダ名は最大100文字までです。',
         ];
         $validated = $request->validate([
             'name' => 'required|max:100'

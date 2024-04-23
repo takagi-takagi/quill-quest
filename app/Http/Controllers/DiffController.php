@@ -59,8 +59,8 @@ class DiffController extends Controller
 
     public function storeProject(Request $request) {
         $messages = [
-            'name.required' => 'フォルダ名は必須です。',
-            'name.max' => 'フォルダ名は最大100文字までです。',
+            'name.required' => 'イベント名は必須です。',
+            'name.max' => 'イベント名は最大100文字までです。',
         ];
         $validated = $request->validate([
             'name' => 'required|max:100'
@@ -69,7 +69,7 @@ class DiffController extends Controller
         $maxUserProjectId = Project::where('user_id', auth()->id())->max('user_project_id');
         $validated['user_project_id'] = $maxUserProjectId + 1;
         $project = Project::create($validated);
-        return redirect()->route('project.index')->with('message', 'フォルダを作成しました。');
+        return redirect()->route('project.index')->with('message', 'イベントを作成しました。');
     }
 
     public function storeText($data,$id,$queryNewId) {
@@ -109,7 +109,7 @@ class DiffController extends Controller
     public function showProject(Request $request,$id) {
         $project = Project::where('user_id', auth()->id())->where('user_project_id', $id)->first();
         $data = [];
-        $texts = Text::where('project_id', $project->id)->orderBy('created_at', 'desc')->get();
+        $texts = Text::where('project_id', $project->id)->orderBy('created_at', 'desc')->paginate(5);
         if ($request->has('old')) {
             $oldId = $request->query('old');
             $data['oldId'] = $oldId;

@@ -6,10 +6,10 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-1">
             <x-responsive-project-link href="../project">
                 <div class="max-w-xl">
-                    フォルダ一覧に戻る
+                    イベント一覧に戻る
                 </div>
             </x-responsive-project-link>
             @if(session('message'))
@@ -66,6 +66,44 @@
                     </x-primary-button>
                 </form>
             </div>
+            <div class="mb-4">
+                {{ $texts->links() }}
+            </div>
+            @foreach($texts as $text)
+            <x-responsive-project-link>
+    <div class="w-full flex justify-between">
+        <!-- 左側のボタン -->
+        <div class="flex space-x-1">
+            <form action="" method="post" class="hidden lg:block">
+                @csrf
+                <x-primary-button>
+                    1にセット
+                </x-primary-button>
+            </form>
+            <form action="" method="post" class="hidden lg:block">
+                @csrf
+                <x-primary-button>
+                    2にセット
+                </x-primary-button>
+            </form>
+            <form action="" method="post" class="hidden lg:block">
+                @csrf
+                <x-primary-button>
+                    コピー
+                </x-primary-button>
+            </form>
+            <p>{{$text->project_text_id}}: {{$text->bodyHead()}}</p>
+        </div>
+        <form action="" method="post" class="hidden lg:block">
+            @csrf
+            @method('delete')
+            <x-danger-button>
+                削除する
+            </x-danger-button>
+        </form>
+    </div>
+</x-responsive-project-link>
+            @endforeach
             @foreach($texts as $text)
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <div class="w-full">

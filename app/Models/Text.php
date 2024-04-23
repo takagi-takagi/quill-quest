@@ -21,6 +21,6 @@ class Text extends Model
         return $this->belongsTo(Project::class);
     }
     public function bodyHead() {
-        return Str::substr($this->body, 0, 50) . "... (" .Str::length($this->body). "文字)";
+        return Str::substr($this->body, 0, 25) . "... (" .Str::length($this->body). "文字)";
     }
 }

@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            フォルダ一覧
+            イベント一覧
         </h2>
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-1">
             @if(session('message'))
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg text-lg font-medium text-red-400">
                     {{session('message')}}
@@ -14,11 +14,11 @@
             @endif
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <h2 class="text-lg font-medium text-gray-900">
-                        新規フォルダ作成
+                        新規イベント作成
                     </h2>
                 <form action="{{route('project.store')}}" method="post" class="mt-6 space-y-6">
                     @csrf
-                    <x-input-label for="name" value="フォルダ名" />
+                    <x-input-label for="name" value="イベント名" />
                     <x-text-input  type="text" name="name" id="name" class="mt-1 block w-full" value="{{old('body')}}"/>
                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     <x-primary-button>
@@ -28,9 +28,8 @@
             </div>
             @foreach($projects as $project)
                 <x-responsive-project-link :href="route('project.show', $project->user_project_id)">
-                    <div class="w-full">
-                        <p>ID:{{$project->user_project_id}}</p>
-                        <p>{{$project->name}}</p>
+                    <div class="w-full flex justify-between">
+                        <p>{{$project->user_project_id}}:{{$project->name}}</p>
                         <form action="{{route('project.destroy',$project)}}" method="post">
                                 @csrf
                                 @method('delete')

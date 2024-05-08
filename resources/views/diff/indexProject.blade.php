@@ -28,17 +28,38 @@
             </div>
             @foreach($projects as $project)
                 <x-responsive-project-link :href="route('project.show', $project->user_project_id)">
-                    <div class="w-full flex justify-between">
-                        <p>{{$project->user_project_id}}:{{$project->name}}</p>
-                        <form action="{{route('project.destroy',$project)}}" method="post">
+                <div class="w-full flex justify-between items-center">
+    <div class="flex-1 overflow-hidden">
+        <p class="whitespace-normal break-words">
+            {{$project->user_project_id}}: {{$project->name}}
+        </p>
+    </div>
+    <div class=mx-2>
+        <x-danger-button x-data="" x-on:click.prevent="$dispatch('open-modal', 'delete-{{$project->user_project_id}}')">
+            削除
+        </x-danger-button>
+    </div>
+</div>
+
+                </x-responsive-project-link>
+                <x-modal name="delete-{{$project->user_project_id}}" :show="$errors->userDeletion->isNotEmpty()" focusable>
+                    <div class="p-6">
+                        <p>{{$project->user_project_id}}:</p>
+                        <p>{{$project->name}}</p>
+                        <div class="mt-8">
+                            <h2 class="text-lg font-medium text-red-400">
+                                本当に削除しますか？
+                            </h2>
+                            <form action="{{route('project.destroy',$project)}}" method="post">
                                 @csrf
                                 @method('delete')
                                 <x-danger-button>
-                                    削除する
+                                    削除
                                 </x-danger-button>
                             </form>
+                        </div>
                     </div>
-                </x-responsive-project-link>
+                </x-modal>
             @endforeach
         </div>
     </div>

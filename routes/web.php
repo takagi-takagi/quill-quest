@@ -42,6 +42,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/project/{project}', [DiffController::class, 'destroyProject'])->name('project.destroy');
 
     Route::delete('/text/{text}', [DiffController::class, 'destroyText'])->name('text.destroy');
+
+    Route::post('/project/{id}/checkAndStore', [DiffController::class, 'checkAndStore']);
+
+    Route::post('/project/{id}/setQuery2', [DiffController::class, 'setQuery2']);
 });
 
 require __DIR__.'/auth.php';

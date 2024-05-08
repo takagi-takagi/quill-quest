@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.diff-wrapper th{
+    width: 3%;
+}
+.diff-wrapper td{
+    width: 47%;
+}

@@ -139,6 +139,7 @@ class DiffController extends Controller
             $data['html'] = '<p class="border-2 border-gray-500 rounded p-2">ここに変更点が表示されます</p>';
         }
         $uniqueTypeTexts = Text::select('type', DB::raw('MAX(created_at) as latest_created_at'))
+        ->where('project_id', $project->id)
         ->whereNotNull('type')
         ->where('type', '<>', '')
         ->groupBy('type')

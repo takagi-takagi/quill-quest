@@ -1,66 +1,74 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+![ヘッダー画像](画像のURL)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 概要
 
-## About Laravel
+テキストのバージョン(変更履歴)管理、比較、ChatGPTを通した校正・変換が出来るサイトです。
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 思い
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+私は文章を考えるのが苦手で、文章を書かなければならない場面では、ネットで書き方を調べたり、ChatGPTに校正してもらったり、手動で修正することを繰り返していました。文章の履歴を記録しながら、変更点を色付きで表示してくれるアプリがあれば、実際に使用する文章を考えるうえでも、文章を書く練習をするうえでも便利だなと思い、アプリを作成しました。
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 機能
 
-## Learning Laravel
+| トップ画面 | 新規登録 |
+|------------|------------|
+| ![トップ画面](画像のURL) | ![新規登録](画像のURL) |
+| こちらからログイン、新規登録、イベント一覧、ログアウトのページに遷移します。 | 名前、メールアドレス、パスワードを入力して登録できます。 |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+| ログイン | パスワードリセット |
+|------------|------------|
+| ![ログイン](画像のURL) | ![パスワードリセット](画像のURL) |
+| メールアドレスとパスワードを入力してログインします。ブラウザに認証情報を記憶する機能、パスワードリセット機能があります。 | 登録時のメールアドレスに、パスワードリセットのためのリンクをメールで送信します。 |
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+| イベント作成 | イベント管理画面 |
+|------------|------------|
+| ![イベント作成](画像のURL) | ![イベント管理画面](画像のURL) |
+| テキストの履歴を記録する「イベント」を作成または削除することができます。クリックすると閲覧ページに移動します。 | イベント内のテキストを管理する画面です。テキストを入力・生成すること、履歴のテキストを比較・閲覧することができます。 |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| 変換のもととなるテキストを入力もしくは選択 | テキストを変換もしくは校正 |
+|------------|------------|
+| ![変換のもととなるテキストを入力もしくは選択](画像のURL) | ![テキストを変換もしくは校正](画像のURL) |
+| 変換のもととなるテキストを入力するか、履歴から選択します。入力する場合、過去の履歴から最新のものがフォームに挿入されていますので、編集して使用します。入力されたテキストは履歴に保存されます。履歴のテキストから選択した場合、同じものが履歴に保存されることはありません。 | テキストを変換または校正します。変換する場合は、「○○風に変換する」の○○の部分を選択するか、入力します。選択する場合は、選択肢にはいくつかのサンプルと過去に入力されたものがあります。テキストが変換・校正されたあとは、テキスト比較機能で変換前と変換後のテキストを比較します。 |
 
-## Laravel Sponsors
+| テキスト比較機能 | テキスト履歴機能 |
+|------------|------------|
+| ![テキスト比較機能](画像のURL) | ![テキスト履歴機能](画像のURL) |
+| 履歴から二つのテキストを選んで比較します。削除・追加された箇所の色が変わります。 | テキストの履歴を表示します。ボタンを押すことで、コピー・変換対象にセット・比較機能にセットすることができます。クリックするとモーダルウィンドウに全文が表示されます。履歴が多い場合はページネーションで分割して表示されます。 |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+| レスポンシブ対応 | 削除機能 |
+|------------|------------|
+| ![レスポンシブ対応](画像のURL) | ![削除機能](画像のURL) |
+| PCでは変換前後の入力フォームは左右に表示されていますが、スマホ画面では上下に表示されます。テキスト履歴のボタンはモーダルウィンドウにのみ表示されます。 | イベント・テキスト・アカウントの削除時、モーダルウィンドウで確認画面が表示されます。 |
 
-### Premium Partners
+| アカウント画面 | 成功メッセージ・エラーメッセージ |
+|------------|------------|
+| ![アカウント画面](画像のURL) | ![成功メッセージ・エラーメッセージ](画像のURL) |
+| 名前とメールアドレスの変更、パスワードの更新、アカウントの削除ができます。 | 入力チェックが形式に合わない場合はエラーメッセージ、送信が成功した場合は成功メッセージが表示されます。エラーの場合、送信前の値が保持されます。 |
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## 使用技術
 
-## Contributing
+| パッケージ名                                                                              | バージョン | 説明                                                     |
+|------------------------------------------------------------------------------------------|------------|----------------------------------------------------------|
+| PHP                                                                                      | 8.2.9      | -                                                        |
+| Laravel                                                                                  | 10.45.0    | PHPのフレームワーク                                       |
+| [laravel/sanctum](https://github.com/laravel/sanctum)                                    | 3.3        | トークンベースの認証システムを提供する Laravel パッケージ。|
+| [laravel/tinker](https://github.com/laravel/tinker)                                      | 2.8        | Laravel の REPL（対話型シェル）パッケージ。               |
+| [openai-php/laravel](https://github.com/openai-php/laravel)                              | 0.8.1      | OpenAI の API を Laravel アプリケーションで簡単に使用するためのパッケージ。|
+| [laravel/breeze](https://github.com/laravel/breeze)                                      | 1.28       | 認証システムを提供する Laravel パッケージ。               |
+| [laravel/sail](https://github.com/laravel/sail)                                          | 1.18       | Laravel の開発環境を Docker コンテナで提供するパッケージ。|
+| [askdkc/breezejp](https://github.com/askdkc/breezejp)                                    | 1.8        | Laravel Breeze の日本語対応パッケージ。                  |
+| [jfcherng/php-diff](https://github.com/askdkc/breezejp)                                  | 6.15       | テキストやファイルの差分を計算するためのライブラリ。      |
+| Alpine.js                                                                                | 3.4.2      | JavaScriptフレームワーク。                               |
+| Tailwind CSS                                                                             | 3.1.0      | CSSフレームワーク。                                      |
+| vite                                                                                     | 5.0.0      | コンパイルをするツール。                                 |
+| Node.js                                                                                  | 17.6.0     | JavaScriptをサーバー側で動作させるプラットフォーム。viteを使うのに必要。|
+| Laravel Blade                                                                            | -          | Laravelに含まれているテンプレートエンジン。              |
+| gpt-3.5-turbo                                                                            | -          | OpenAIのAIモデル。                                       |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## ER図
 
-## Code of Conduct
+![ER図](画像のURL)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 画面遷移図
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+![画面遷移図](画像のURL)

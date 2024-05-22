@@ -1,4 +1,4 @@
-![ヘッダー画像](画像のURL)
+![ヘッダー画像](https://github.com/takagi-takagi/quill-quest/assets/125945940/f2f093c9-2d59-4e3e-8649-026ae8f5f5f5)
 
 ## 概要
 
@@ -67,8 +67,4 @@
 
 ## ER図
 
-![ER図](画像のURL)
-
-## 画面遷移図
-
-![画面遷移図](画像のURL)
+![ER図](https://github.com/takagi-takagi/quill-quest/assets/125945940/6a9f6e32-4f3c-4ab5-ab88-42ca71a94723)

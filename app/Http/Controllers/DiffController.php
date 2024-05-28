@@ -230,13 +230,13 @@ class DiffController extends Controller
         }
         
         if ($request->storeType == 'transform_dropdown') {
-            $this->storeTransformDropdown($request,$id,$body);
+            $GenerateProjectTextId = $this->storeTransformDropdown($request,$id,$body);
         } elseif($request->storeType == 'transform_input') {
-            $this->storeTransformInput($request,$id,$body);
+            $GenerateProjectTextId = $this->storeTransformInput($request,$id,$body);
         } elseif($request->storeType == 'proofread') {
-            $this->storeProofred($request,$id,$body);
+            $GenerateProjectTextId = $this->storeProofred($request,$id,$body);
         }
-        return $this->showNew($id)->with('message', 'テキストを生成しました。')->with('createText',true);
+        return $this->showNew($id)->with('message', 'テキストを生成しました。ID:'.$GenerateProjectTextId.'に保存しました。')->with('createText',true);
     }
 
     public function formHistory(Request $request,$id) {
@@ -271,7 +271,7 @@ class DiffController extends Controller
             'dropdownTextType' => 'required|not_in:選択してください'
         ],$messages);
         $textType = $request->dropdownTextType;
-        $this->storeChatText2($body, $id,$textType);
+        return $this->storeChatText2($body, $id,$textType);
     }
     public function storeTransformInput(Request $request,$id,$body) {
         $messages = [
@@ -283,11 +283,11 @@ class DiffController extends Controller
             'inputTextType' => 'required|max:100'
         ],$messages);
         $textType = $request->inputTextType;
-        $this->storeChatText2($body, $id,$textType);
+        return $this->storeChatText2($body, $id,$textType);
     }
     public function storeProofred(Request $request,$id,$body) {
         $textType = null;
-        $this->storeChatText2($body, $id,$textType);
+        return $this->storeChatText2($body, $id,$textType);
     }
 
     public function storePlainText2($body,$id) {
@@ -309,7 +309,7 @@ class DiffController extends Controller
         
         $data['body'] =$newBody;
         $data['is_posted'] = 0;
-        $this->storeText2($data,$id);
+        return $this->storeText2($data,$id);
     }
 
     public function storeText2($data,$id) {
@@ -320,6 +320,7 @@ class DiffController extends Controller
         $data['project_text_id'] = $maxProjectTextId + 1;
         
         Text::create($data);
+        return $data['project_text_id'];
     }
 
 

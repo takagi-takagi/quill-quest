@@ -22,7 +22,7 @@
                     <x-text-input  type="text" name="name" id="name" class="mt-1 block w-full" value="{{old('body')}}"/>
                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     <x-primary-button>
-                        送信
+                        作成
                     </x-primary-button>
                 </form>
             </div>

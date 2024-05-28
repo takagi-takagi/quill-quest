@@ -13,8 +13,27 @@
                 </div>
             </x-responsive-project-link>
             @if(session('message'))
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg text-lg font-medium text-red-400">
-                    {{session('message')}}
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg text-lg font-medium">
+                    <p class="text-red-400">{{session('message')}}</p>
+                    @if(session('createText'))
+                        @foreach($texts as $text)
+                            @if($loop->first)
+                                <p>
+                                    {{$text->project_text_id}}:
+                                    @if($text->is_posted == true)
+                                            (入力されたテキスト)
+                                        @else
+                                            @if($text->type == null)
+                                                (校正された後のテキスト)
+                                            @else
+                                                (生成された文章({{$text->type}}風))
+                                            @endif
+                                        @endif
+                                </p>
+                                <p>{{$text->body}}</p>
+                            @endif
+                        @endforeach
+                    @endif
                 </div>
             @endif
             
@@ -99,27 +118,6 @@
                     </div>
                 </form>
             </div>
-            @if(session('createText'))
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg text-lg font-medium">
-                    @foreach($texts as $text)
-                        @if($loop->first)
-                            <p class="text-red-400">
-                                {{$text->project_text_id}}:
-                                @if($text->is_posted == true)
-                                        (入力されたテキスト)
-                                    @else
-                                        @if($text->type == null)
-                                            (校正された後のテキスト)
-                                        @else
-                                            (生成された文章({{$text->type}}風))
-                                        @endif
-                                    @endif
-                            </p>
-                            <p>{{$text->body}}</p>
-                        @endif
-                    @endforeach
-                </div>
-            @endif
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 @if($html)
                     @php

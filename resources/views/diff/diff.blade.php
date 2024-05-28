@@ -107,7 +107,7 @@
                                 風に変換
                                 <x-input-error class="mt-2" :messages="$errors->get('inputTextType')" />
                             </label>
-                            <label>
+                            <label class="mt-10">
                                 <input type="radio" name="storeType" value="proofread">
                                 ChatGPTで校正
                             </label>

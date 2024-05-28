@@ -51,10 +51,17 @@
                             <select id="dropdownTextHisoty" name="dropdownTextHisoty" x-model="dropdownTextHisoty">
                                 <option value="">選択してください</option>
                                 @foreach($texts as $text)
-                                    <option value="{{$text->project_text_id}}" 
-                                            {{ old('dropdownTextHisoty', $loop->first ? $text->project_text_id : null) == $text->project_text_id ? 'selected' : '' }}>
-                                        {{$text->project_text_id}}{{ $loop->first ? ' - 最新' : '' }}
-                                    </option>
+                                <option value="{{$text->project_text_id}}" 
+                                    {{ old('dropdownTextHistory', $loop->first ? $text->project_text_id : null) == $text->project_text_id ? 'selected' : '' }}>
+                                    {{$text->project_text_id}}
+                                    @if ($loop->first)
+                                        @if(session('createText'))
+                                            - 最新(上の文章)
+                                        @else
+                                            - 最新
+                                        @endif
+                                    @endif
+                                </option>
                                 @endforeach
                             </select>
                             <x-input-error class="mt-2" :messages="$errors->get('dropdownTextHisoty')" />

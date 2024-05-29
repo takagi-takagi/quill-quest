@@ -12,11 +12,16 @@
                     {{session('message')}}
                 </div>
             @endif
+            @if($projects->isEmpty())
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg text-lg font-medium text-red-400">
+                    イベントがありません。まずはイベントを作成しましょう！
+                </div>
+            @endif
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <h2 class="text-lg font-medium text-gray-900">
+                <h2 class="text-lg font-medium text-gray-900 mb-6">
                         新規イベント作成
                     </h2>
-                <form action="{{route('project.store')}}" method="post" class="mt-6 space-y-6">
+                <form action="{{route('project.store')}}" method="post" class="space-y-6">
                     @csrf
                     <x-input-label for="name" value="イベント名" />
                     <x-text-input  type="text" name="name" id="name" class="mt-1 block w-full" value="{{old('body')}}"/>

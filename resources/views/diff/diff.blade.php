@@ -36,6 +36,11 @@
                     @endif
                 </div>
             @endif
+            @if($texts->isEmpty())
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg text-lg font-medium text-red-400">
+                    テキストがありません。まずはテキストを作成しましょう！
+                </div>
+            @endif
             
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg" >
                 <form action="./{{$project->user_project_id}}/checkAndStore" method="post" class="flex flex-col md:flex-row items-center md:items-stretch">
@@ -236,7 +241,6 @@
                                 <x-primary-button x-on:click="dropdownNewId = {{$text->project_text_id}}">
                                     右にセット
                                 </x-primary-button>
-                                
                                     <x-primary-button  x-on:click="navigator.clipboard.writeText(text).then(() => alert('`{{$text->body}}`\n\nをコピーしました！')).catch(err => console.error('コピーに失敗しました:', err))">
                                         文章をコピー
                                     </x-primary-button>

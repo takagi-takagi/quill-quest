@@ -101,10 +101,10 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('dropdownTextType')" />
                             </label>
                             <p class="mt-1 text-sm text-gray-600">
-                                ※過去に入力している型は上から選択してください。
+                                過去に入力している型は上から選択してください。
                             </p>
                             <p class="mt-1 text-sm text-gray-600">
-                                　入力していない場合は下から入力してください。
+                                入力していない場合は下から入力してください。
                             </p>
                             <label class="w-full">
                                 <input type="radio" name="storeType" value="transform_input">
@@ -132,6 +132,9 @@
                 </form>
             </div>
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <h2 class="text-lg font-medium text-gray-900 mb-3">
+                    生成したテキストを比較する
+                </h2>
                 @if($html)
                     @php
                         echo $html
@@ -141,7 +144,10 @@
                     変更点なし
                 </div>
                 @endif
-                <form action="./{{$project->user_project_id}}/setQuery2" method="post" class="mt-2">
+                <form action="./{{$project->user_project_id}}/setQuery2" method="post" class="mt-4">
+                    <p class="mt-6 mb-1">
+                        比較するテキストを選んでください。
+                    </p>
                     @csrf
                     <select id="dropdownOldId" name="dropdownOldId" x-model="dropdownOldId">
                         <option value="">選択してください</option>
@@ -191,7 +197,7 @@
                             </x-primary-button>
                             <div x-data="{ text: '{{$text->body}}' }">
                                 <x-primary-button  x-on:click="navigator.clipboard.writeText(text).then(() => alert('`{{$text->body}}`\n\nをコピーしました！')).catch(err => console.error('コピーに失敗しました:', err))"  x-on:click.stop class="hidden lg:block">
-                                    コピー
+                                    文章をコピー
                                 </x-primary-button>
                             </div>
                             <p>{{$text->project_text_id}}: {{$text->bodyHead()}}</p>
@@ -232,7 +238,7 @@
                                 </x-primary-button>
                                 
                                     <x-primary-button  x-on:click="navigator.clipboard.writeText(text).then(() => alert('`{{$text->body}}`\n\nをコピーしました！')).catch(err => console.error('コピーに失敗しました:', err))">
-                                        コピー
+                                        文章をコピー
                                     </x-primary-button>
                             </div>
                                 <x-danger-button  class="mt-1" x-data="" x-on:click.prevent="$dispatch('open-modal', 'delete-{{$text->project_text_id}}')">

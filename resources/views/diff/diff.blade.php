@@ -100,6 +100,12 @@
                                 風に変換
                                 <x-input-error class="mt-2" :messages="$errors->get('dropdownTextType')" />
                             </label>
+                            <p class="mt-1 text-sm text-gray-600">
+                                ※過去に入力している型は上から選択してください。
+                            </p>
+                            <p class="mt-1 text-sm text-gray-600">
+                                　入力していない場合は下から入力してください。
+                            </p>
                             <label class="w-full">
                                 <input type="radio" name="storeType" value="transform_input">
                                 ChatGPTで

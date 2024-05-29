@@ -53,12 +53,12 @@
                                 @foreach($texts as $text)
                                 <option value="{{$text->project_text_id}}" 
                                     {{ old('dropdownTextHistory', $loop->first ? $text->project_text_id : null) == $text->project_text_id ? 'selected' : '' }}>
-                                    {{$text->project_text_id}}
+                                    {{$text->project_text_id}}:{{$text->bodyHead10()}}
                                     @if ($loop->first)
                                         @if(session('createText'))
-                                            - 最新(上の文章)
+                                            - (上の文章)
                                         @else
-                                            - 最新
+                                            - (最新)
                                         @endif
                                     @endif
                                 </option>
@@ -141,9 +141,9 @@
                         <option value="">選択してください</option>
                         @foreach($texts as $text)
                             @if($loop->first)
-                                <option value="{{$text->project_text_id}}">{{$text->project_text_id}} - 最新</option>
+                                <option value="{{$text->project_text_id}}">{{$text->project_text_id}}:{{$text->bodyHead10()}} - (最新)</option>
                             @else
-                                <option value="{{$text->project_text_id}}">{{$text->project_text_id}}</option>
+                                <option value="{{$text->project_text_id}}">{{$text->project_text_id}}:{{$text->bodyHead10()}}</option>
                             @endif
                         @endforeach
                     </select>
@@ -153,12 +153,11 @@
                         @foreach($texts as $text)
                         <option value="{{$text->project_text_id}}" 
                                         {{ (old('dropdownNewId') == $text->project_text_id) ? 'selected' : '' }}>
-                                {{$text->project_text_id}}{{ $loop->first ? ' - 最新' : '' }}
+                                        {{$text->project_text_id}}:{{$text->bodyHead10()}}{{ $loop->first ? ' - (最新)' : '' }}
                             </option>
                         @endforeach
                     </select>
-                    を比較する
-                    <br class="block md:hidden">
+                    を<br class="sm:hidden">比較する<br class="sm:hidden">
                     <x-primary-button class=" mt-2 md:mt-0">
                         実行
                     </x-primary-button>

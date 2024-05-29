@@ -23,4 +23,7 @@ class Text extends Model
     public function bodyHead() {
         return Str::substr($this->body, 0, 20) . "... (" .Str::length($this->body). "文字)";
     }
+    public function bodyHead10() {
+        return Str::substr($this->body, 0, 10) . "...";
+    }
 }

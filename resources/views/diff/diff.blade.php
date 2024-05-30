@@ -33,6 +33,9 @@
                                 <p>{{$text->body}}</p>
                             @endif
                         @endforeach
+                        @if(session()->has('newType') && !is_null(session('newType')))
+                            <p class="text-red-400">「{{session('newType')}}」を型の選択肢に追加しました</p>
+                        @endif
                     @endif
                 </div>
             @endif

@@ -236,7 +236,28 @@ class DiffController extends Controller
         } elseif($request->storeType == 'proofread') {
             $GenerateProjectTextId = $this->storeProofred($request,$id,$body);
         }
-        return $this->showNew($id)->with('message', 'テキストを生成しました。ID:'.$GenerateProjectTextId.'に保存しました。')->with('createText',true);
+        $newType = $this->checkTextType($id,$GenerateProjectTextId);
+        return $this->showNew($id)->with('message', 'テキストを生成しました。ID:'.$GenerateProjectTextId.'に保存しました。')->with('createText',true)->with('newType',$newType);
+    }
+
+    public function checkTextType($id,$GenerateProjectTextId) {
+
+        $projectId = Project::where('user_id', auth()->id())->where('user_project_id', $id)->first()->id;
+
+        $type = Text::where('project_id', $projectId)->where('project_text_id', $GenerateProjectTextId)->first()->type;
+
+        $conflictText = Text::where('project_id', $projectId)
+                        ->whereNotNull('type')
+                        ->where('type', '<>', '')
+                        ->where('type', $type)
+                        ->where('project_text_id', '!=', $GenerateProjectTextId)
+                        ->first();
+        if ($conflictText == null && $type != null) {
+            $newType = $type;
+        } else {
+            $newType = null;
+        }
+        return $newType;       
     }
 
     public function formHistory(Request $request,$id) {

@@ -42,6 +42,7 @@
 
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
             <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 text-center">Quill-Quest</h1>
+            <p class="mt-8 text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700 dark:text-gray-300">　テキストのバージョン(変更履歴)管理、比較、ChatGPTを通した校正・変換が出来るサイトです。<br>　入力したテキストを謝罪文風、お礼のメール風、犬風...などの文章に変換できます！<br>　まずはテキストの履歴を記録する「イベント」を作り、テキストを入力しましょう！</p>
             </div>
         </div>
     </body>

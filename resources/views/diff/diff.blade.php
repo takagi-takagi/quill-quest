@@ -52,11 +52,11 @@
                         $textareaContent = old('body') !== null ? old('body') : ($texts[0]->body ?? '');
                     @endphp
                     
-                    <div class="flex flex-col w-full md:w-1/2  border border-gray-300 rounded-md p-1">
+                    <div class="flex flex-col w-full md:w-1/2  border border-gray-300 rounded-md p-1 " x-data="{ leftSelectedOption: '' }">
                         <label>
-                            <input type="radio" name="textFormType" value="history">
+                            <input type="radio" name="textFormType" value="history" x-model="leftSelectedOption">
                             テキスト履歴
-                            <select id="dropdownTextHisoty" name="dropdownTextHisoty" x-model="dropdownTextHisoty">
+                            <select id="dropdownTextHisoty" name="dropdownTextHisoty" x-model="dropdownTextHisoty" x-bind:disabled="leftSelectedOption !== 'history'" class="border-gray-400 disabled:border-gray-200 disabled:text-gray-300 disabled:cursor-not-allowed">
                                 <option value="">選択してください</option>
                                 @foreach($texts as $text)
                                 <option value="{{$text->project_text_id}}" 
@@ -78,10 +78,10 @@
                             </p>
                         </label>
                         <label>
-                            <input type="radio" name="textFormType" value="textarea">
+                            <input type="radio" name="textFormType" value="textarea"  x-model="leftSelectedOption">
                             新規入力
-                            <textarea name="body" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">{{ $textareaContent }}</textarea>
-                            <x-input-error class="mt-2" :messages="$errors->get('body')" />
+                            <textarea name="body" class="border-gray-400 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full  disabled:border-gray-200 disabled:text-gray-300 disabled:cursor-not-allowed" x-bind:disabled="leftSelectedOption !== 'textarea'">{{ $textareaContent }}</textarea>
+                            <x-input-error class="mt-2" :messages="$errors->get('body')"/>
                             <p class="mt-1 text-sm text-gray-600">
                                 ※入力されたテキストと変換後のテキストが履歴に追加されます
                             </p>
@@ -91,12 +91,12 @@
                     <div class="md:mt-16 md:ml-2">
                         を
                     </div>
-                    <div class="flex flex-col ml-2 w-full md:w-1/2">
+                    <div class="flex flex-col ml-2 w-full md:w-1/2" x-data="{ rightSelectedOption: '' }">
                         <div  class="flex flex-col border border-gray-300 rounded-md p-1">
                             <label  class="w-full">
-                                <input type="radio" name="storeType" value="transform_dropdown">
+                                <input type="radio" name="storeType" value="transform_dropdown" x-model="rightSelectedOption">
                                 ChatGPTで
-                                <select id="dropdownTextType" name="dropdownTextType" x-model="dropdownOldId" class="md:w-auto w-full">
+                                <select id="dropdownTextType" name="dropdownTextType" x-model="dropdownOldId"  x-bind:disabled="rightSelectedOption !== 'transform_dropdown'" class="md:w-auto w-full border-gray-400 disabled:border-gray-200 disabled:text-gray-300 disabled:cursor-not-allowed">
                                     <option value="">選択してください</option>
                                     @foreach($uniqueTypeTexts as $uniqueTypeText)
                                         <option value="{{$uniqueTypeText->type}}">履歴：{{$uniqueTypeText->type}}</option>
@@ -115,14 +115,14 @@
                                 入力していない場合は下から入力してください。
                             </p>
                             <label class="w-full">
-                                <input type="radio" name="storeType" value="transform_input">
+                                <input type="radio" name="storeType" value="transform_input" x-model="rightSelectedOption">
                                 ChatGPTで
-                                <input type="text" name="inputTextType" id="inputTextType" placeholder="入力してください" class="md:w-auto w-full">
+                                <input type="text" name="inputTextType" id="inputTextType" placeholder="入力してください" x-bind:disabled="rightSelectedOption !== 'transform_input'" class="md:w-auto w-full border-gray-400 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full  border-gray-400 disabled:border-gray-200 disabled:text-gray-200 disabled:cursor-not-allowed disabled:placeholder-gray-200">
                                 風に変換
                                 <x-input-error class="mt-2" :messages="$errors->get('inputTextType')" />
                             </label>
                             <label class="mt-10">
-                                <input type="radio" name="storeType" value="proofread">
+                                <input type="radio" name="storeType" value="proofread"  x-model="rightSelectedOption">
                                 ChatGPTで校正
                             </label>
                             <!-- <label>

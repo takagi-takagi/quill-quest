@@ -147,6 +147,20 @@
                     @php
                         echo $html
                     @endphp
+                    <div class="flex justify-between mt-2">
+                        @foreach($texts as $text)
+                            @if($text->project_text_id == $oldId)
+                                <x-primary-button  x-data="{ text: '{{$text->body}}' }" x-on:click="navigator.clipboard.writeText(text).then(() => alert('`{{$text->body}}`\n\nをコピーしました！')).catch(err => console.error('コピーに失敗しました:', err))"  x-on:click.stop>
+                                    文章をコピー
+                                </x-primary-button>
+                            @endif
+                            @if($text->project_text_id == $newId)
+                                <x-primary-button  x-data="{ text: '{{$text->body}}' }" x-on:click="navigator.clipboard.writeText(text).then(() => alert('`{{$text->body}}`\n\nをコピーしました！')).catch(err => console.error('コピーに失敗しました:', err))"  x-on:click.stop>
+                                    文章をコピー
+                                </x-primary-button>
+                            @endif
+                        @endforeach
+                    </div>
                 @else
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg text-lg font-medium text-red-400">
                     変更点なし

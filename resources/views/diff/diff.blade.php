@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            ID:{{$project->user_project_id}} {{$project->name}}
+            イベント: {{$project->name}}
         </h2>
     </x-slot>
 
@@ -148,18 +148,20 @@
                         echo $html
                     @endphp
                     <div class="flex justify-between mt-2">
-                        @foreach($texts as $text)
-                            @if($text->project_text_id == $oldId)
-                                <x-primary-button  x-data="{ text: '{{$text->body}}' }" x-on:click="navigator.clipboard.writeText(text).then(() => alert('`{{$text->body}}`\n\nをコピーしました！')).catch(err => console.error('コピーに失敗しました:', err))"  x-on:click.stop>
-                                    文章をコピー
-                                </x-primary-button>
-                            @endif
-                            @if($text->project_text_id == $newId)
-                                <x-primary-button  x-data="{ text: '{{$text->body}}' }" x-on:click="navigator.clipboard.writeText(text).then(() => alert('`{{$text->body}}`\n\nをコピーしました！')).catch(err => console.error('コピーに失敗しました:', err))"  x-on:click.stop>
-                                    文章をコピー
-                                </x-primary-button>
-                            @endif
-                        @endforeach
+                        @if(isset($oldId) && isset($newId))
+                            @foreach($texts as $text)
+                                @if($text->project_text_id == $oldId)
+                                    <x-primary-button  x-data="{ text: '{{$text->body}}' }" x-on:click="navigator.clipboard.writeText(text).then(() => alert('`{{$text->body}}`\n\nをコピーしました！')).catch(err => console.error('コピーに失敗しました:', err))"  x-on:click.stop>
+                                        文章をコピー
+                                    </x-primary-button>
+                                @endif
+                                @if($text->project_text_id == $newId)
+                                    <x-primary-button  x-data="{ text: '{{$text->body}}' }" x-on:click="navigator.clipboard.writeText(text).then(() => alert('`{{$text->body}}`\n\nをコピーしました！')).catch(err => console.error('コピーに失敗しました:', err))"  x-on:click.stop>
+                                        文章をコピー
+                                    </x-primary-button>
+                                @endif
+                            @endforeach
+                        @endif
                     </div>
                 @else
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg text-lg font-medium text-red-400">

@@ -46,6 +46,9 @@
             @endif
             
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg" >
+                <h2 class="text-lg font-medium text-gray-900 mb-3">
+                    テキストを生成する
+                </h2>
                 <form action="./{{$project->user_project_id}}/checkAndStore" method="post" class="flex flex-col md:flex-row items-center md:items-stretch">
                     @csrf
                     @php

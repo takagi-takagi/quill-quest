@@ -237,7 +237,7 @@ class DiffController extends Controller
             $GenerateProjectTextId = $this->storeProofred($request,$id,$body);
         }
         $newType = $this->checkTextType($id,$GenerateProjectTextId);
-        return $this->showNew($id)->with('message', 'テキストを生成しました。ID:'.$GenerateProjectTextId.'に保存しました。')->with('createText',true)->with('newType',$newType);
+        return $this->showNew($id)->with('message', 'テキストを生成しました。'.$GenerateProjectTextId.'番に保存しました。下の一覧でご確認ください。')->with('createText',true)->with('newType',$newType);
     }
 
     public function checkTextType($id,$GenerateProjectTextId) {

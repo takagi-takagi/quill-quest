@@ -136,7 +136,7 @@
                         </div>
                         <div>
                             <x-primary-button class="mt-2">
-                                生成
+                                実行
                             </x-primary-button>
                         </div>
                     </div>

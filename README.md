@@ -14,7 +14,7 @@
 
 | トップ画面 | ユーザー登録 |
 |------------|------------|
-| ![トップ画面](https://github.com/takagi-takagi/quill-quest/assets/125945940/6d8e0a15-40a6-46c1-ad4f-f74f36abcde6) | ![ユーザー登録](https://github.com/takagi-takagi/quill-quest/assets/125945940/6d19529c-c2ed-4d0c-b89a-00b34184af26) |
+| ![トップ画面](https://github.com/takagi-takagi/quill-quest/assets/125945940/4e228ebc-40bc-45ab-ac68-5aace1694a7e) | ![ユーザー登録](https://github.com/takagi-takagi/quill-quest/assets/125945940/6d19529c-c2ed-4d0c-b89a-00b34184af26) |
 | 　まずはこちらからユーザー登録しましょう！<br>　ログインしていない場合は、ユーザー登録、ログインのページ、ログインしている場合は、イベント一覧、ログアウトのページに遷移することが出来ます。 | 　名前、メールアドレス、パスワードを入力して登録できます。 |
 
 | ログイン | イベント作成 |
@@ -24,12 +24,12 @@
 
 | テキストを入力するか選択する | テキストを生成する |
 |------------|------------|
-| ![テキストを入力するか選択す](https://github.com/takagi-takagi/quill-quest/assets/125945940/69a40761-dce3-4841-9f49-874d68a1fa54) | ![テキストを生成する](https://github.com/takagi-takagi/quill-quest/assets/125945940/9625cb99-4e6e-4291-9f94-e2cfc265ad61) |
+| ![テキストを入力するか選択す](https://github.com/takagi-takagi/quill-quest/assets/125945940/058bec25-6f84-425d-9f1f-6006d56e8776) | ![テキストを生成する](https://github.com/takagi-takagi/quill-quest/assets/125945940/b50b9663-5402-412b-9109-64439556bc40) |
 | 　まずはテキストを入力しましょう！<br>　すでに履歴にテキストがある場合は選択することも出来ます。このテキストを元にテキストを生成します。 | 　先ほど入力(選択)したテキストを基に新しいテキストを生成します。<br>　「○○風に変換する」の○○を入力する場合は、一番上を選択してから入力してください。二番目を選択すると過去に入力したものから選択することも出来ます。特に指定が無い場合は三番目の「校正」を選んでください。<br>　実行ボタンを押すとテキストが生成されます。 |
 
 | テキスト比較 | テキスト履歴 |
 |------------|------------|
-| ![テキスト比較](https://github.com/takagi-takagi/quill-quest/assets/125945940/6ad354c8-f685-4db6-8001-267fe07cb232) | ![テキスト履歴](https://github.com/takagi-takagi/quill-quest/assets/125945940/3425911f-ecf8-42c6-a360-cc19a7058152) |
+| ![テキスト比較](https://github.com/takagi-takagi/quill-quest/assets/125945940/76b967e1-3c89-4f81-9852-3c9565bcd4b4) | ![テキスト履歴](https://github.com/takagi-takagi/quill-quest/assets/125945940/8870cdac-bf74-4335-895c-0108d7594f4a) |
 | 　テキストが生成された後、生成前と生成後のテキストを並べて表示します。削除・追加された箇所の色が変わって表示されます。<br>　履歴から二つのテキストを選んで比較することも出来ます。<br>　「文章をコピー」ボタンでコピーすることも出来ます。 | 　テキストの履歴を表示します。文章をコピーするボタンのほか、テキスト生成・テキスト比較の各入力フォームにセットするボタンもあります。テキスト本文は省力して表示されていますが、クリックするとモーダルウィンドウに全文が表示されます。 |
 
 | アカウント管理 | レスポンシブ対応 |
